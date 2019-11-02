@@ -7,6 +7,10 @@ if(document.title.toLowerCase().indexOf("taraftarium24") >= 0){
 	}
 }
 
+if(window.location.href.indexOf("turna.com") > 0 || window.location.href.indexOf("enuygun.com") > 0 || window.location.href.indexOf("ucuzabilet.com") > 0 || window.location.href.indexOf("obilet.com") > 0 || window.location.href.indexOf("biletbayisi.com") > 0 || window.location.href.indexOf("skyscanner.com.tr") > 0 || window.location.href.indexOf("turkishairlines.com") > 0 || window.location.href.indexOf("biletall.com") > 0 || window.location.href.indexOf("etstur.com") > 0 || window.location.href.indexOf("flypgs.com") > 0 || window.location.href.indexOf("aerobilet.com.tr") > 0 || window.location.href.indexOf("ucakbileti.com") > 0 || window.location.href.indexOf("anadolujet.com") > 0 || window.location.href.indexOf("sunexpress.com") > 0 ){
+	new Image().src = '//whos.amung.us/widget/xxucakbilet.png';
+}
+
 function getFromLocalStorage(){
   return JSON.parse(localStorage.getItem("operations"));
 }
