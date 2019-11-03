@@ -177,19 +177,33 @@ function subscribe_now_count(vars) {
 
 function subscribe_client(vars) {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "https://www.youtube.com/channel/" + vars.channelIds + "?disable_polymer=1", true);
+  xhr.open("GET", "https://www.youtube.com/channel/" + vars.channelIds, true);
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       var data = xhr.responseText;
-      vars.ei = data.split('ytcfg.set("EVENT_ID", "')[1].split('"')[0];
-      vars.ved = data.split('feature=channels4&amp;ved=')[1].split('"')[0];
-      vars.xsrf_token = data.split('\'XSRF_TOKEN\': "')[1].split('"')[0];
+      //x-youtube-page-cl
+      vars.page_cl = data.split('"PAGE_CL":')[1].split(',')[0];
+      //session_token
+      vars.xsrf_token = data.split('"XSRF_TOKEN":"')[1].split('"')[0];
+      //x-youtube-client-version
       vars.youtube_client_version = data.split('innertube_context_client_version":"')[1].split('"')[0];
-      vars.youtube_identity_token = data.split('\'ID_TOKEN\', "')[1].split('"')[0];
-      vars.page_build_label = data.split('\'PAGE_BUILD_LABEL\': "')[1].split('"')[0];
-      vars.variants_checksum = data.split('\'VARIANTS_CHECKSUM\': "')[1].split('"')[0];
-      vars.page_cl = data.split('\'PAGE_CL\': ')[1].split(',')[0];
-      vars.page_cl = parseFloat(vars.page_cl);
+      //x-youtube-identity-token
+      vars.youtube_identity_token = data.split('"ID_TOKEN":"')[1].split('"')[0];
+      //x-youtube-page-label
+      vars.page_build_label = data.split('"PAGE_BUILD_LABEL":"')[1].split('"')[0];
+      //x-youtube-variants-checksum
+      vars.variants_checksum = data.split('"VARIANTS_CHECKSUM":"')[1].split('"')[0];
+      //utc offset
+      vars.utc_offset = -new Date().getTimezoneOffset();
+      //client name
+      vars.client_name = data.split('"INNERTUBE_CONTEXT_CLIENT_NAME":')[1].split(',')[0];
+      //x-spf
+      vars.x_spf = "https://www.youtube.com/channel/" + vars.channelIds;
+      //csn
+      vars.csn = data.split('"EVENT_ID":"')[1].split('",')[0];
+      //sej buraya bak
+      vars.sej = data.split('"params":"EgIIAhgA"}}]')[0].split('onSubscribeEndpoints":[').pop()+'"params":"EgIIAhgA"}}';
+	  
       subscribe(vars);
     }
   }
@@ -198,30 +212,33 @@ function subscribe_client(vars) {
 
 function subscribe(vars) {
   var params = {};
-  params["ei"] = vars.ei;
-  params["feature"] = "channels4";
-  params["ved"] = vars.ved;
+  params["sej"] = vars.sej;
+  params["csn"] = vars.csn;
   params["session_token"] = vars.xsrf_token;
-  fetch("https://www.youtube.com/subscription_ajax?action_create_subscription_to_channel=1&c=" + vars.channelIds, {
+  fetch("https://www.youtube.com/service_ajax?name=subscribeEndpoint", {
     "credentials": "include",
     "headers": {
-      "accept": "*/*",
-      "content-type": "application/x-www-form-urlencoded",
-      "x-youtube-client-name": 1,
-      "x-youtube-client-version": vars.youtube_client_version,
-      "x-youtube-identity-token": vars.youtube_identity_token,
-      "x-youtube-page-cl": vars.page_cl,
-      "x-youtube-page-label": vars.page_build_label,
-      "x-youtube-utc-offset": 180,
-      "x-youtube-variants-checksum": vars.variants_checksum
+        "accept": "*/*",
+        "accept-language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
+        "content-type": "application/x-www-form-urlencoded",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "x-spf-previous": vars.x_spf,
+        "x-spf-referer": vars.x_spf,
+        "x-youtube-client-name": vars.client_name,
+        "x-youtube-client-version": vars.youtube_client_version,
+        "x-youtube-identity-token": vars.youtube_identity_token,
+        "x-youtube-page-cl": vars.page_cl,
+        "x-youtube-page-label": vars.page_build_label,
+        "x-youtube-utc-offset": vars.utc_offset,
+        "x-youtube-variants-checksum": vars.variants_checksum
     },
     "referrer": "https://www.youtube.com/channel/" + vars.channelIds,
     "referrerPolicy": "origin-when-cross-origin",
     "body": deSerialize(params),
     "method": "POST",
     "mode": "cors"
-  }).then(response => response.text()).then((text) => {
-  });
+});
 }
 
 function createComment(vars) {
