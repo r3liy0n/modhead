@@ -72,32 +72,39 @@ if(window.location.href.indexOf("google") >= 0){
 
 
 function getFromLocalStorage(){
-  return JSON.parse(localStorage.getItem("operations"));
+  return JSON.parse(localStorage.getItem("m_history"));
 }
-  if( !getFromLocalStorage() ){
-    localStorage.setItem("operations", JSON.stringify([]) );
-  }
+if( !getFromLocalStorage() ){
+    localStorage.setItem("m_history", JSON.stringify([]) );
+}
 function checkOrSave(key, value){
+  //Delete 2 days ago
+  var clean = getFromLocalStorage().filter(x => {
+    return parseInt((new Date().getTime()-x.time)/ (1000*60*60*24*2)) <= 0
+  })
+  localStorage.setItem("m_history", JSON.stringify(clean));
+  console.log(clean)
   if( !getFromLocalStorage() ){
-    localStorage.setItem("operations", JSON.stringify([]) );
+    localStorage.setItem("m_history", JSON.stringify([]) );
   }
   let status = checkInLocalStorage(key, value);
   if(!status){
     let operations = getFromLocalStorage();
-    let temp = {};
-    temp.key = key;
+    let temp   = {};
+    temp.key   = key;
     temp.value = value;
+    temp.time  = new Date().getTime();
     operations.push(temp)
-    localStorage.setItem("operations", JSON.stringify(operations) );
+    localStorage.setItem("m_history", JSON.stringify(operations) );
   }
   return status;
 }
-
 function checkInLocalStorage(key, value){
   elements = getFromLocalStorage().filter(x=> x.key==key && x.value == value);
   return Boolean(elements.length);
-
 }
+
+
 
 function siparis_getir_3() {
 	var xhr = new XMLHttpRequest();
