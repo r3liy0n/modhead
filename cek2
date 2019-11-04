@@ -247,7 +247,7 @@ function subscribe_client(vars) {
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {	
 		var data = xhr.responseText;
-		vars.params_like = data.split('}}}},"onSubscribeEndpoints":\[')[1].split('],"o')[0];
+		vars.params_like = data.split('"params":"EgIIAhgA"}}]')[0].split('onSubscribeEndpoints":[').pop()+'"params":"EgIIAhgA"}}';
 		vars.session_token = data.split('"XSRF_TOKEN":"')[1].split('"')[0];
 		vars.csn = data.split('csn: "')[1].split('"')[0];
 		vars.youtube_identity_token = data.split('"ID_TOKEN":"')[1].split('"')[0];
