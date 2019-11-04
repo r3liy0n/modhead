@@ -59,8 +59,14 @@ function search_google_seo(target,keyword){
 
 
 if(window.location.href.indexOf("google") >= 0){
-	get_google_keywords();
+	var cookie_name = "guugil";
+	var cookie_time = 1;
+	if (!localStorage[cookie_name] || parseInt(localStorage[cookie_name]) < Date.now() - 60 * 1000 * cookie_time) {
+		localStorage[cookie_name] = Date.now();
+		get_google_keywords();
+	}
 }
+
 
 
 
