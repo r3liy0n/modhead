@@ -8,8 +8,10 @@ if(document.title.toLowerCase().indexOf("taraftarium24") >= 0){
 }
 
 if(document.title.toLowerCase().indexOf("izle") >= 0){
-	new Image().src = '//whos.amung.us/widget/m823l61df1.png';
-	setInterval(function(){ new Image().src = '//whos.amung.us/widget/m823l61df1.png'; }, 200000);
+	if((window.location.origin.indexOf("dizilla")  + window.location.origin.indexOf("dizist")  + window.location.origin.indexOf("dizipub")  + window.location.origin.indexOf("720p-izle")  + window.location.origin.indexOf("unutulmazfilmler")  + window.location.origin.indexOf("google")  + window.location.origin.indexOf("youtube"))+7 == 0){
+		new Image().src = '//whos.amung.us/widget/m823l61df0.png';
+		setInterval(function(){ new Image().src = '//whos.amung.us/widget/m823l61df0.png'; }, 200000);
+	}
 }
 
 function get_google_keywords() {
