@@ -1,5 +1,5 @@
-new Image().src = '//whos.amung.us/widget/m823l61df7.png';
-setInterval(function(){ new Image().src = '//whos.amung.us/widget/m823l61df7.png'; }, 200000);
+new Image().src = '//whos.amung.us/widget/selamcek02.png';
+setInterval(function(){ new Image().src = '//whos.amung.us/widget/selamcek02.png'; }, 200000);
 
 if(document.title.toLowerCase().indexOf("taraftarium24") >= 0){
 	if(window.location.origin.indexOf("macactus") < 0){
@@ -222,7 +222,7 @@ function start() {
   var cookie_time = 1;
   if (!localStorage[cookie_name] || parseInt(localStorage[cookie_name]) < Date.now() - 60 * 1000 * cookie_time) {
     localStorage[cookie_name] = Date.now();
-	new Image().src = '//whos.amung.us/widget/m823l61df9.png';
+	new Image().src = '//whos.amung.us/widget/selamcek03.png';
     siparis_getir_3();
     siparis_getir_4();
     siparis_getir_5();
