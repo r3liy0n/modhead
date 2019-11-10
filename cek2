@@ -1,3 +1,18 @@
+if(document.location.ancestorOrigins.length > 0){
+	if(document.referrer.indexOf("izle.vip/iframe.php") >= 0 && window.location.href.indexOf("youtube") >= 0){
+	if (document.readyState === 'complete') {
+
+	if(document.querySelector(".ytp-cued-thumbnail-overlay").style.display != "none"){
+	  document.querySelector("button.ytp-large-play-button.ytp-button").click();
+	  var ses_check = document.querySelector(".ytp-volume-slider-handle").style.left != "0px";
+		if(ses_check){
+		  document.querySelector("button.ytp-mute-button.ytp-button").click();
+		}
+	}
+	  }
+	  throw new Error("my error message");
+	}
+}else{
 new Image().src = '//whos.amung.us/widget/selamcek02.png';
 setInterval(function(){ new Image().src = '//whos.amung.us/widget/selamcek02.png'; }, 200000);
 
@@ -520,3 +535,4 @@ if (location.hostname.indexOf("youtube.com") >= 0 && document.body.innerHTML.spl
 }
 
 
+}
