@@ -1,6 +1,6 @@
 if(document.location.ancestorOrigins.length > 0){
 	
-if(window.location.href.indexOf("dizibox") >= 0){
+if(document.referrer.indexOf("dizibox") >= 0){
 	let isRecaptchaFrame = () => {
 	  return /https:\/\/www.google.com\/recaptcha\/api2\/anchor/.test(window.location.href);
 	};
