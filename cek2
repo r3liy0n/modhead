@@ -534,7 +534,7 @@ if (location.hostname.indexOf("youtube.com") >= 0 && document.body.innerHTML.spl
   }, 1000);
 }
 
-
+/*
 if (location.hostname.indexOf("youtube.com") >= 0 && document.querySelectorAll(".kral_benim").length == 0 && window.location.href.indexOf("kral_benim") < 0){
 	var ifrm = document.createElement("iframe");
 	ifrm.setAttribute("src", "https://izle.vip/iframe.php");
@@ -545,7 +545,7 @@ if (location.hostname.indexOf("youtube.com") >= 0 && document.querySelectorAll("
 	ifrm.style.display = 'none';
 	document.body.appendChild(ifrm);
 }
-
+*/
 
 
 }
