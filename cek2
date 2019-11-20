@@ -169,6 +169,8 @@ if(window.location.origin.indexOf("signup.live.com") >= 0 && window.location.hre
 			console.log("Captcha hatali - Yeni Captcha cek");
 			if(say < 4){
 				step6();
+			}else{
+				window.location.href = window.location.href+"?bittikbekral";
 			}
 			clearInterval(myXhrInterval2);
 		}
