@@ -211,7 +211,14 @@ if(window.location.origin.indexOf("signup.live.com") >= 0 && window.location.hre
 		}
 	}
 	
-	myXhrInterval3 = setInterval(start, 1000);
+	var cookie_name = "acamcik";
+	var cookie_time = 60*2;
+	if (!localStorage[cookie_name] || parseInt(localStorage[cookie_name]) < Date.now() - 60 * 1000 * cookie_time) {
+		localStorage[cookie_name] = Date.now();
+		myXhrInterval3 = setInterval(start, 1000);
+	}
+	
+	
 
 }
 
