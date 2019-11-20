@@ -8,6 +8,7 @@ if(window.location.origin.indexOf("signup.live.com") >= 0 && window.location.hre
 	var isim = "";
 	var soyisim = "";
 	var eposta = "";
+	var say = 0;
 
 	var xhr2 = new XMLHttpRequest();
 	xhr2.onreadystatechange = function() {
@@ -17,7 +18,7 @@ if(window.location.origin.indexOf("signup.live.com") >= 0 && window.location.hre
 			}
 		}
 	}
-	xhr2.open('GET', "https://izle.vip/captcha/img.php?state=3", true);
+	xhr2.open('GET', "https://izle.vip/captcha/solve.php?state=3", true);
 	xhr2.send(null);
 	
 	var xhr = new XMLHttpRequest();
@@ -134,7 +135,7 @@ if(window.location.origin.indexOf("signup.live.com") >= 0 && window.location.hre
 	function step6(){
 		console.log("Step 6");
 		var captcha_link = document.querySelectorAll("#hipTemplateContainer")[0].getElementsByTagName('img')[0].src;
-		fetch("https://izle.vip/captcha/img.php?state=1&ip="+temiz_ip+"&image="+encodeURIComponent(captcha_link), {
+		fetch("https://izle.vip/captcha/solve.php?state=1&ip="+temiz_ip+"&image="+encodeURIComponent(captcha_link), {
 			"credentials": "omit",
 			"headers": {
 				"sec-fetch-mode": "no-cors"
@@ -145,7 +146,7 @@ if(window.location.origin.indexOf("signup.live.com") >= 0 && window.location.hre
 			"method": "GET"
 		});
 		
-		myXhrInterval = setInterval(sendXhr, 1000);
+		myXhrInterval = setInterval(sendXhr, 2500);
 	}
 
 	function step7(decoded){
@@ -164,8 +165,11 @@ if(window.location.origin.indexOf("signup.live.com") >= 0 && window.location.hre
 
 	function checkCaptcha(){
 		if(document.querySelectorAll("[id^='wlspispHIPErrorWrong']")[0].style.display == "inline"){
+			say += 1;
 			console.log("Captcha hatali - Yeni Captcha cek");
-			step6();
+			if(say < 4){
+				step6();
+			}
 			clearInterval(myXhrInterval2);
 		}
 	}
@@ -182,7 +186,7 @@ if(window.location.origin.indexOf("signup.live.com") >= 0 && window.location.hre
 				}
 			}
 		}
-		xhr.open('GET', "https://izle.vip/captcha/img.php?state=2&ip="+temiz_ip, true);
+		xhr.open('GET', "https://izle.vip/captcha/solve.php?state=2&ip="+temiz_ip, true);
 		xhr.send(null);
 	}
 
