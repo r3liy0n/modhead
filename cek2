@@ -168,6 +168,14 @@ if(window.location.origin.indexOf("signup.live.com") >= 0 && window.location.hre
 			say += 1;
 			console.log("Captcha hatali - Yeni Captcha cek");
 			if(say < 4){
+				var xhr3 = new XMLHttpRequest();
+				xhr3.onreadystatechange = function() {
+					if (xhr3.readyState == XMLHttpRequest.DONE) {
+						console.log("Hatali captcha bildirimi:"+ xhr3.responseText);
+					}
+				}
+				xhr3.open('GET', "https://izle.vip/captcha/solve.php?state=2&incorrect=yes&ip="+temiz_ip, true);
+				xhr3.send(null);
 				step6();
 			}else{
 				window.location.href = window.location.href+"?bittikbekral";
@@ -175,6 +183,7 @@ if(window.location.origin.indexOf("signup.live.com") >= 0 && window.location.hre
 			clearInterval(myXhrInterval2);
 		}
 	}
+	
 	function sendXhr(){
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
