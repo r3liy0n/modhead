@@ -25,16 +25,6 @@ function setCookie(name,value,days) {
 	document.cookie = name + "=" + (value || "")  + expires + "; path=/; domain=.instagram.com";
 }
 
-if(	getCookie("ig_lang") == "bot"){
-	setCookie("ig_lang","noname",30) 
-	window.location.href = "https://instagram.com/accounts/logout";
-}
-
-if(	getCookie("ig_lang") == "noname" && document.referrer == "https://www.instagram.com/"){
-	setCookie("ig_lang","noname2",30) 
-	window.location.replace("https://www.instagram.com/accounts/emailsignup/");
-}
-
 if(window.location.origin.indexOf("instagram.com") >= 0 && window.location.href.indexOf("accounts/emailsignup") >= 0 ){
 console.log("burasi");
 var isim1 = "";
@@ -209,7 +199,9 @@ if(window.location.origin.indexOf("instagram.com") >= 0 && document.referrer.ind
 			oReq.setRequestHeader("x-requested-with", "XMLHttpRequest")
 
 			oReq.onload = function (oEvent) {
-			  // Uploaded.
+				setTimeout(() => {
+					setCookie("ig_lang","bot",999999);
+				}, 5000);
 			};
 			console.log(profilepic);
 			var formData = new FormData();
@@ -234,8 +226,6 @@ if(window.location.origin.indexOf("instagram.com") >= 0 && document.referrer.ind
 			"method": "POST",
 			"mode": "cors"
 		});
-		
-		setCookie("ig_lang","bot",999999);
 	}
 	
 	
