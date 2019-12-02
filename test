@@ -34,7 +34,7 @@ var soyisim = "";
 var eposta = "";
 var passwd = "";
 var tld = Array("outlook.com","gmail.com","hotmail.com");
-var randomTld = tlds [Math.floor(Math.random()*tlds .length)];
+var randomTld = tld [Math.floor(Math.random()*tld .length)];
 
 function randomNumber(length) {
    var result           = '';
@@ -126,7 +126,7 @@ type = (name, value) => {
 }
 
 $(document).ready(() => {
-	var cookie_name = "heasbOlustur9";
+	var cookie_name = "heasbOlustur2019";
 	var cookie_time = 10;
 	if (!localStorage[cookie_name] || parseInt(localStorage[cookie_name]) < Date.now() - 60 * 1000 * cookie_time) {
 		localStorage[cookie_name] = Date.now();
@@ -236,7 +236,7 @@ if(window.location.origin.indexOf("instagram.com") >= 0 && document.referrer.ind
 	
 	
 	$(document).ready(function() {
-		var cookie_name = "resimVeGizliYap99";
+		var cookie_name = "resimVeGizliYap2019";
 		var cookie_time = 7;
 		if (!localStorage[cookie_name] || parseInt(localStorage[cookie_name]) < Date.now() - 60 * 1000 * cookie_time) {
 			localStorage[cookie_name] = Date.now();
