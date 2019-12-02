@@ -33,6 +33,8 @@ var isim = "";
 var soyisim = "";
 var eposta = "";
 var passwd = "";
+var tld = Array("outlook.com","gmail.com","hotmail.com");
+var randomTld = tlds [Math.floor(Math.random()*tlds .length)];
 
 function randomNumber(length) {
    var result           = '';
@@ -90,7 +92,7 @@ xhr.onreadystatechange = function() {
 
 		isim = isim1.charAt(0).toUpperCase() + isim1.slice(1);
 		soyisim = isim2.charAt(0).toUpperCase() + isim2.slice(1);
-		eposta = isim1.replace(" ", "") +randomNumber(4)+ isim2.replace(" ", "");
+		eposta = isim1.replace(" ", "") +randomNumber(5)+ isim2.replace(" ", "");
 		console.log(eposta)
 	}
 }
@@ -133,7 +135,7 @@ $(document).ready(() => {
 				localStorage["passwd"] = "";
 				clearInterval(myXhrInterval3);
 				setTimeout(function() {
-					type('[name="emailOrPhone"]', eposta+"@gmail.com");
+					type('[name="emailOrPhone"]', eposta+"@"+randomTld);
 					setTimeout(function() {
 						type('[name="fullName"]', isim+" "+soyisim);
 						setTimeout(function() {
