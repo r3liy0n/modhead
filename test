@@ -25,6 +25,10 @@ function setCookie(name,value,days) {
 	document.cookie = name + "=" + (value || "")  + expires + "; path=/; domain=.instagram.com";
 }
 
+function rasgteleSurem(min, max) { 
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+rasgteleSurem(3000,4500)
 if(window.location.origin.indexOf("instagram.com") >= 0 && window.location.href.indexOf("accounts/emailsignup") >= 0 ){
 console.log("burasi");
 var isim1 = "";
@@ -82,7 +86,7 @@ function generatePassword(length) {
    return result;
 }
 
-passwd = generatePassword(9);
+passwd = generatePassword(1);
 var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
 	if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -149,13 +153,13 @@ $(document).ready(() => {
 											document.querySelectorAll('[type="radio"]')[0].click(); // 18 Yas
 											setTimeout(function() {
 												document.querySelectorAll('[type="button"]')[4].click(); // Ileri
-											}, 4000);
-										}, 4000);
-									}, 4000);
-							}, 4000);
-						}, 4000);
-					}, 4000);
-				}, 4000);
+											}, rasgteleSurem(3000,4500));
+										}, rasgteleSurem(3000,4500));
+									}, rasgteleSurem(3000,4500));
+							}, rasgteleSurem(3000,4500));
+						}, rasgteleSurem(3000,4500));
+					}, rasgteleSurem(3000,4500));
+				}, rasgteleSurem(3000,4500));
 			}
 		}, 1000);
 	}
