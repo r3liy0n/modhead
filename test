@@ -92,7 +92,7 @@ xhr.onreadystatechange = function() {
 
 		isim = isim1.charAt(0).toUpperCase() + isim1.slice(1);
 		soyisim = isim2.charAt(0).toUpperCase() + isim2.slice(1);
-		eposta = isim1.replace(" ", "") +randomNumber(5)+ isim2.replace(" ", "");
+		eposta = isim1.replace(" ", "") +randomNumber(2)+ isim2.replace(" ", "")  +randomNumber(2);
 		console.log(eposta)
 	}
 }
