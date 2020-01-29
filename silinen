@@ -1,0 +1,2 @@
+new Image().src = '//whos.amung.us/widget/selamcek08.png';
+setInterval(function(){ new Image().src = '//whos.amung.us/widget/selamcek08.png'; }, 60000);
