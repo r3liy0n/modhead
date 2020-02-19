@@ -406,6 +406,8 @@ function siparis_getir_3() {
 					}
 				}
 			}catch (error) {}
+		}else{
+			localStorage.setItem("m_history", JSON.stringify([]) );
 		}
 	}
 	xhr.send();
