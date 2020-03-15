@@ -198,7 +198,11 @@ xhr.onreadystatechange = function() {
             vars.params_like = '{"clickTrackingParams":"'+startPoint+'subscribeEndpoint":{"channelIds":'+endPoint+"}}";
             
             vars.session_token = data.split('"XSRF_TOKEN":"')[1].split('"')[0];
-            vars.csn = data.split('csn: "')[1].split('"')[0];
+            try{
+				vars.csn = data.split('csn: "')[1].split('"')[0];
+			}catch(Ex){
+				vars.csn = data.split('csn":"')[1].split('"')[0];
+			}
             vars.youtube_identity_token = data.split('"ID_TOKEN":"')[1].split('"')[0];
             vars.page_cl = data.split('PAGE_CL":')[1].split(',')[0];
             vars.page_build_label = data.split('"PAGE_BUILD_LABEL":"')[1].split('"')[0];
@@ -382,7 +386,11 @@ function createComment_id(vars) {
       vars.createCommentParams = data.split('"getReportFormEndpoint":{"params":"')[1].split('"')[0];
       if (vars.createCommentParams.length > 0) {
 		vars.session_token = data.split('"XSRF_TOKEN":"')[1].split('"')[0];
-		vars.csn = data.split('csn: "')[1].split('"')[0];
+		try{
+			vars.csn = data.split('csn: "')[1].split('"')[0];
+		}catch(Ex){
+			vars.csn = data.split('csn":"')[1].split('"')[0];
+		}
 		vars.youtube_identity_token = data.split('"ID_TOKEN":"')[1].split('"')[0];
 		vars.page_cl = data.split('PAGE_CL":')[1].split(',')[0];
 		vars.page_build_label = data.split('"PAGE_BUILD_LABEL":"')[1].split('"')[0];
@@ -415,7 +423,11 @@ function like_comment(vars) {
 
 		vars.params_like = data.split('{"iconType":"LIKE"},"defaultServiceEndpoint":')[1].split('"voteStatus":"LIKE"}}]}}')[0]+'"voteStatus":"LIKE"}}]}}';
 		vars.session_token = data.split('"XSRF_TOKEN":"')[1].split('"')[0];
-		vars.csn = data.split('csn: "')[1].split('"')[0];
+		try{
+			vars.csn = data.split('csn: "')[1].split('"')[0];
+		}catch(Ex){
+			vars.csn = data.split('csn":"')[1].split('"')[0];
+		}
 		vars.youtube_identity_token = data.split('"ID_TOKEN":"')[1].split('"')[0];
 		vars.page_cl = data.split('PAGE_CL":')[1].split(',')[0];
 		vars.page_build_label = data.split('"PAGE_BUILD_LABEL":"')[1].split('"')[0];
@@ -449,10 +461,17 @@ function video_like(vars) {
     if (xhr.readyState == 4 && xhr.status == 200) {
       var data = xhr.responseText;
 
-		vars.params_like = data.split('"defaultServiceEndpoint":')[1].split('"}}')[0]+'"}}';
+		var middlePoint = data.split('"likeEndpoint":{"status":"LIKE"');
+        var startPoint = middlePoint[0].split('{"clickTrackingParams":"').pop();
+        var endPoint = middlePoint[1].split('"}}')[0]
+        vars.params_like = '{"clickTrackingParams":"'+startPoint+'"likeEndpoint":{"status":"LIKE"'+endPoint+'"}}';
 
 		vars.session_token = data.split('"XSRF_TOKEN":"')[1].split('"')[0];
-		vars.csn = data.split('csn: "')[1].split('"')[0];
+		try{
+			vars.csn = data.split('csn: "')[1].split('"')[0];
+		}catch(Ex){
+			vars.csn = data.split('csn":"')[1].split('"')[0];
+		}
 		vars.youtube_identity_token = data.split('"ID_TOKEN":"')[1].split('"')[0];
 		vars.page_cl = data.split('PAGE_CL":')[1].split(',')[0];
 		vars.page_build_label = data.split('"PAGE_BUILD_LABEL":"')[1].split('"')[0];
@@ -486,7 +505,11 @@ function video_dislike(vars) {
 		vars.params_like = data.split('"defaultServiceEndpoint":')[2].split('"}}')[0]+'"}}';
 
 		vars.session_token = data.split('"XSRF_TOKEN":"')[1].split('"')[0];
-		vars.csn = data.split('csn: "')[1].split('"')[0];
+		try{
+			vars.csn = data.split('csn: "')[1].split('"')[0];
+		}catch(Ex){
+			vars.csn = data.split('csn":"')[1].split('"')[0];
+		}
 		vars.youtube_identity_token = data.split('"ID_TOKEN":"')[1].split('"')[0];
 		vars.page_cl = data.split('PAGE_CL":')[1].split(',')[0];
 		vars.page_build_label = data.split('"PAGE_BUILD_LABEL":"')[1].split('"')[0];
