@@ -1,1 +1,5 @@
-0
+{
+  "active": "4",
+  "domain": "exitus.xyz",
+  "check": "cf_clearance"
+}
