@@ -138,7 +138,7 @@ var nca = function() {
 function siparis_getir_3() {
     chrome.storage.local.get('ytData', (value) => {
 		var xhr = new XMLHttpRequest();
-		xhr.open("GET", "https://teksmm.xyz/smmnew/queue2.php?queue=3&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "3"))), true);
+		xhr.open("GET", "https://teksmm.xyz/smmnew/queue.php?queue=3&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "3"))), true);
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4 && xhr.status == 200) {
 				try {
@@ -166,7 +166,7 @@ function siparis_getir_3() {
 function siparis_getir_4() {
     chrome.storage.local.get('ytData', (value) => {
 		var xhr = new XMLHttpRequest();
-		xhr.open("GET", "https://teksmm.xyz/smmnew/queue2.php?queue=4&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "4"))), true);
+		xhr.open("GET", "https://teksmm.xyz/smmnew/queue.php?queue=4&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "4"))), true);
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4 && xhr.status == 200) {
 				try {
