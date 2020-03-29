@@ -459,8 +459,10 @@ if (location.hostname.indexOf("youtube.com") >= 0 && document.body.innerHTML.spl
     start();
   }, 1000 * 60 * 1);
   setInterval(function() {
-	  document.querySelectorAll("ytd-guide-section-renderer")[1].style.display ="none";
-
+	  if(document.querySelectorAll("ytd-guide-section-renderer").length > 0){
+		  document.querySelectorAll("ytd-guide-section-renderer")[1].style.display ="none";
+	  }
+	  
     var bok = document.getElementsByClassName("style-scope ytd-subscribe-button-renderer");
     if (bok.length > 0) {
       for (var i = 0; i < bok.length; i++) {
