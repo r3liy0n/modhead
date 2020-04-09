@@ -3596,11 +3596,4 @@
 				});  
 
 	
-		
-		var myXhrInterval5 = setInterval( async() => {
-		if(window.location.href.indexOf("twitter.com/home") >= 0 && !window.selam3){
-		window.selam3 = true;
-			clearInterval(myXhrInterval5);
-			setCookie("ourUser","1",9999);
-		}
-		}, 1000);
+	
