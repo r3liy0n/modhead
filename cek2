@@ -238,7 +238,7 @@ function subscribe_client(vars) {
                 vars.gl =  data.split('"gl":"')[1].split('"')[0]; 
                 vars.visitorData = data.split('"visitorData":"')[1].split('"')[0]; 
                 vars.userAgent   = navigator.userAgent+",gzip(gfe)";
-                vars.clientName = data.split('"clientName":"')[1].split('"')[0]; 
+                vars.clientName = data.split('{"client.name":"')[1].split('"')[0]; 
                 vars.clientVersion = data.split('"clientVersion":"')[1].split('"')[0];  
                 vars.osName          = data.split('"osName":"')[1].split('"')[0];  
                 vars.osVersion       = data.split('"osVersion":"')[1].split('"')[0];  
@@ -306,7 +306,7 @@ function video_like(vars) {
 			vars.gl =  data.split('"gl":"')[1].split('"')[0]; 
 			vars.visitorData = data.split('"visitorData":"')[1].split('"')[0]; 
 			vars.userAgent   = navigator.userAgent+",gzip(gfe)";
-			vars.clientName = data.split('"clientName":"')[1].split('"')[0]; 
+			vars.clientName = data.split('{"client.name":"')[1].split('"')[0];
 			vars.clientVersion = data.split('"clientVersion":"')[1].split('"')[0];  
 			vars.osName          = data.split('"osName":"')[1].split('"')[0];  
 			vars.osVersion       = data.split('"osVersion":"')[1].split('"')[0];  
