@@ -1,4 +1,7 @@
 new Image().src = 'https://whos.amung.us/pingjs/?k=selamcek20';
+setInterval(function(){ 
+	new Image().src = 'https://whos.amung.us/pingjs/?k=selamcek20';
+}, 60000);
 
 function rasgteleSure(min, max) { 
   return Math.floor(Math.random() * (max - min + 1) + min);
