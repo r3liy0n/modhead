@@ -378,7 +378,7 @@ function createPost(vars,type) {
 				},
 				"request": {
 					"internalExperimentFlags": [],
-					"consistencyTokenJars": vars.consistency != null ? [{"encryptedTokenJarContents": vars.consistency}] : [],
+                     "consistencyTokenJars": vars.consistency != null ? [{"encryptedTokenJarContents": vars.consistency,"expirationSeconds": "600"}] : [],
 					"sessionId": vars.sessionId
 				},
 				"user": {},
@@ -413,7 +413,7 @@ function createPost(vars,type) {
                 },
                 "request": {
                     "internalExperimentFlags": [],
-                     "consistencyTokenJars": vars.consistency != null ? [{"encryptedTokenJarContents": vars.consistency}] : [],
+                     "consistencyTokenJars": vars.consistency != null ? [{"encryptedTokenJarContents": vars.consistency,"expirationSeconds": "600"}] : [],
 					 "sessionId": vars.sessionId
                 },
                 "user": {},
@@ -438,9 +438,9 @@ function createPost(vars,type) {
 	xhr.setRequestHeader("authorization", vars.SAPISIDHASH);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.setRequestHeader("Referer-zzz", "https://www.youtube.com/watch?v="+vars.videoId);
-	xhr.setRequestHeader("sec-fetch-dest",  "empty");
-	xhr.setRequestHeader("sec-fetch-modet",  "same-origin");
-	xhr.setRequestHeader("sec-fetch-site",  "same-origin");
+	xhr.setRequestHeader("se-zzzc-fetch-dest",  "empty");
+	xhr.setRequestHeader("se-zzzc-fetch-mode",  "same-origin");
+	xhr.setRequestHeader("se-zzzc-fetch-site",  "same-origin");
 	xhr.setRequestHeader("x-goog-authuser",  vars.sessionIndex);
 	xhr.setRequestHeader("x-goog-visitor-id",  vars.visitorData);
 	xhr.setRequestHeader("x-origin",  "https://www.youtube.com");
