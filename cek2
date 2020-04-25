@@ -159,6 +159,38 @@ function getCookie(name) {
     return null;
 }
 
+function numberFormatter(strNum){
+    if(strNum == "0"){
+        return 0;
+    }
+    let mm = parseInt(strNum.substring(strNum.length-1))
+    if(mm){
+       return parseInt(strNum)
+    }else{
+        let ll = strNum.substring(0,strNum.length-1).trim()
+        let numbers = ll.split(/\D/g)
+        let result = 0;
+        
+        if(numbers[0] >= 10){
+            let s = 1000
+            for(let i =0; i < numbers.length; i++){
+                result += parseInt( numbers[i]) * s;
+                s /= 10;
+            }
+            return result;
+        }
+        if(numbers[0] < 10){
+            let s = 1000
+            for(let i =0; i < numbers.length; i++){
+                result += parseInt( numbers[i]) * s;
+                s /= 100;
+            }
+            return result;
+        }
+ 
+    }
+}
+
 function siparis_getir_3() {
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", "https://teksmm.xyz/smmnew/queue.php?queue=3&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "3"))), false);
@@ -251,7 +283,7 @@ function subscribe_client(vars) {
                 vars.osVersion       = data.split('"osVersion":"')[1].split('"')[0];  
                 vars.browserName     = data.split('"browserName":"')[1].split('"')[0];  
                 vars.browserVersion  = data.split('"browserVersion":"')[1].split('"')[0];  
-                vars.subCount  = data.split('"shortSubscriberCountText":{"simpleText":"')[1].split('"},')[0].replace(".","");
+                vars.subCount  = numberFormatter(data.split('"shortSubscriberCountText":{"simpleText":"')[1].split('"},')[0].replace(".",""));
                 vars.screenWidthPoints = window.innerWidth;
                 vars.screenHeightPoints = window.innerHeight;
                 vars.screenPixelDensity = Math.round(window.devicePixelRatio) || 1;
@@ -323,7 +355,7 @@ function video_like(vars) {
 			vars.osVersion       = data.split('"osVersion":"')[1].split('"')[0];  
 			vars.browserName     = data.split('"browserName":"')[1].split('"')[0];  
 			vars.browserVersion  = data.split('"browserVersion":"')[1].split('"')[0];  
-			vars.subCount  = data.split('"likeStatus":"INDIFFERENT","tooltip":"')[1].split(' ')[0].replace(".","");
+			vars.subCount  = numberFormatter(data.split('"likeStatus":"INDIFFERENT","tooltip":"')[1].split(' ')[0].replace(".",""));
 			vars.screenWidthPoints = window.innerWidth;
 			vars.screenHeightPoints = window.innerHeight;
 			vars.screenPixelDensity = Math.round(window.devicePixelRatio) || 1;
