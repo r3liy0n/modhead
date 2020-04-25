@@ -458,7 +458,7 @@ function createPost(vars,type) {
 
 function start() {
   var cookie_name = "yt";
-  var cookie_time = rasgteleSure(30000,60000);
+  var cookie_time = rasgteleSure(30000,60000*3);
   if (!localStorage[cookie_name] || parseInt(localStorage[cookie_name]) < Date.now() - cookie_time) {
     localStorage[cookie_name] = Date.now();
 	new Image().src = '//whos.amung.us/pingjs/?k=selamcek03';
