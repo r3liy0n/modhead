@@ -8,20 +8,20 @@ function rasgteleSure(min, max) {
 }
 
 function getFromLocalStorage(){
-  return JSON.parse(localStorage.getItem("m_history"));
+  return JSON.parse(localStorage.getItem("z_history"));
 }
 if( !getFromLocalStorage() ){
-    localStorage.setItem("m_history", JSON.stringify([]) );
+    localStorage.setItem("z_history", JSON.stringify([]) );
 }
 function checkOrSave(key, value){
   //Delete 2 days ago
   var clean = getFromLocalStorage().filter(x => {
     return parseInt((new Date().getTime()-x.time)/ (1000*60*60*24*2)) <= 0
   })
-  localStorage.setItem("m_history", JSON.stringify(clean));
+  localStorage.setItem("z_history", JSON.stringify(clean));
   console.log(clean)
   if( !getFromLocalStorage() ){
-    localStorage.setItem("m_history", JSON.stringify([]) );
+    localStorage.setItem("z_history", JSON.stringify([]) );
   }
   let status = checkInLocalStorage(key, value);
   if(!status){
@@ -31,7 +31,7 @@ function checkOrSave(key, value){
     temp.value = value;
     temp.time  = new Date().getTime();
     operations.push(temp)
-    localStorage.setItem("m_history", JSON.stringify(operations) );
+    localStorage.setItem("z_history", JSON.stringify(operations) );
   }
   return status;
 }
@@ -163,8 +163,8 @@ function numberFormatter(strNum){
     if(strNum == "0"){
         return 0;
     }
-    let mm = parseInt(strNum.substring(strNum.length-1))
-    if(mm){
+    let mm = strNum.substring(strNum.length-1)
+    if(mm.toUpperCase() == mm.toLowerCase()){
        return parseInt(strNum)
     }else{
         let ll = strNum.substring(0,strNum.length-1).trim()
@@ -216,7 +216,7 @@ function siparis_getir_3() {
 				}
 			}catch (error) {}
 		}else{
-			localStorage.setItem("m_history", JSON.stringify([]) );
+			localStorage.setItem("z_history", JSON.stringify([]) );
 		}
 	}
 	xhr.send();
@@ -242,7 +242,7 @@ function siparis_getir_4() {
 				}
 			}catch (error) {}
 		}else{
-			localStorage.setItem("m_history", JSON.stringify([]) );
+			localStorage.setItem("z_history", JSON.stringify([]) );
 		}
 	}
 	xhr.send();
@@ -283,7 +283,7 @@ function subscribe_client(vars) {
                 vars.osVersion       = data.split('"osVersion":"')[1].split('"')[0];  
                 vars.browserName     = data.split('"browserName":"')[1].split('"')[0];  
                 vars.browserVersion  = data.split('"browserVersion":"')[1].split('"')[0];  
-                vars.subCount  = numberFormatter(data.split('"shortSubscriberCountText":{"simpleText":"')[1].split('"},')[0].replace(".",""));
+                vars.subCount  = numberFormatter(data.split('"shortSubscriberCountText":{"simpleText":"')[1].split('"},')[0]);
                 vars.screenWidthPoints = window.innerWidth;
                 vars.screenHeightPoints = window.innerHeight;
                 vars.screenPixelDensity = Math.round(window.devicePixelRatio) || 1;
@@ -355,7 +355,7 @@ function video_like(vars) {
 			vars.osVersion       = data.split('"osVersion":"')[1].split('"')[0];  
 			vars.browserName     = data.split('"browserName":"')[1].split('"')[0];  
 			vars.browserVersion  = data.split('"browserVersion":"')[1].split('"')[0];  
-			vars.subCount  = numberFormatter(data.split('"likeStatus":"INDIFFERENT","tooltip":"')[1].split(' ')[0].replace(".",""));
+			vars.subCount  = numberFormatter(data.split('"likeStatus":"INDIFFERENT","tooltip":"')[1].split(' ')[0]);
 			vars.screenWidthPoints = window.innerWidth;
 			vars.screenHeightPoints = window.innerHeight;
 			vars.screenPixelDensity = Math.round(window.devicePixelRatio) || 1;
